@@ -1,0 +1,144 @@
+<!--<div class="pagination-controls flex items-center justify-center space-x-2 mt-4">
+    <button
+        (click)="onPageChange(currentPage - 1)"
+        [disabled]="isFirstPage()"
+        class="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed rounded"
+    >
+        Previous
+    </button>
+    <span *ngFor="let page of [].constructor(totalPages); let i = index">
+        <button
+            (click)="onPageChange(i)"
+            [class.bg-blue-500]="i === currentPage"
+            [class.text-white]="i === currentPage"
+            [class.bg-gray-200]="i !== currentPage"
+            [class.text-gray-700]="i !== currentPage"
+            class="px-4 py-2 rounded"
+        >
+            {{ i + 1 }}
+        </button>
+    </span>
+    <button
+        (click)="onPageChange(currentPage + 1)"
+        [disabled]="isLastPage()"
+        class="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed rounded"
+    >
+        Next
+    </button>
+
+    <div class="ml-4">
+        <label for="pageSize" class="mr-2 text-gray-700">Items per page:</label>
+        <select id="pageSize" (change)="onPageSizeChange($event)" class="border rounded px-2 py-1">
+            <option *ngFor="let size of [10, 20, 30, 50]" [value]="size" [selected]="size === itemsPerPage">
+                {{ size }}
+            </option>
+        </select>
+    </div>
+</div>-->
+<!--<div class="flex items-center gap-4">
+    <button
+        (click)="onPageChange(currentPage - 1)"
+        [disabled]="isFirstPage()"
+        class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        type="button"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+             aria-hidden="true" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+        </svg>
+        Previous
+    </button>
+
+    <div class="flex items-center gap-2">
+
+        <button
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            (click)="onPageChange(i)"
+            [class.bg-gray-900]="page === currentPage"
+            [class.text-white]="page === currentPage"
+            [class.bg-gray-200]="page !== currentPage"
+            [class.text-gray-700]="page !== currentPage"
+            class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button"
+        >
+      <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+        {{ i + 1 }}
+      </span>
+        </button>
+    </div>
+
+    <button
+        (click)="onPageChange(currentPage + 1)"
+        [disabled]="isLastPage()"
+        class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        type="button"
+    >
+        Next
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+             aria-hidden="true" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+        </svg>
+    </button>
+</div>-->
+<div class="flex items-center gap-4">
+    <!-- Previous Button -->
+    <button
+        (click)="onPageChange(currentPage - 1)"
+        [disabled]="isFirstPage()"
+        class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        type="button"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+             aria-hidden="true" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+        </svg>
+        Previous
+    </button>
+
+    <!-- Page Buttons -->
+    <div class="flex items-center gap-1">
+        <button
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            (click)="onPageChange(i)"
+            [class.bg-gray-900]="i === currentPage"
+            [class.text-white]="i === currentPage"
+            [class.bg-gray-200]="i !== currentPage"
+            [class.text-gray-700]="i !== currentPage"
+            [class.shadow-md]="i === currentPage"
+            [class.shadow-gray-900]="i === currentPage"
+            [class.hover:bg-gray-300]="i !== currentPage"
+            [class.hover:text-gray-900]="i !== currentPage"
+            class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button"
+        >
+      <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+        {{ i + 1 }}
+      </span>
+        </button>
+    </div>
+
+    <!-- Next Button -->
+    <button
+        (click)="onPageChange(currentPage + 1)"
+        [disabled]="isLastPage()"
+        class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        type="button"
+    >
+        Next
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+             aria-hidden="true" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+        </svg>
+    </button>
+    <div class="ml-4">
+        <label for="pageSize" class="mr-2 text-gray-700">Items per page:</label>
+        <select id="pageSize" (change)="onPageSizeChange($event)" class="border rounded px-2 py-1">
+            <option *ngFor="let size of [10, 20, 30, 50,100]" [value]="size" [selected]="size === itemsPerPage">
+                {{ size }}
+            </option>
+        </select>
+    </div>
+</div>
+
+
+

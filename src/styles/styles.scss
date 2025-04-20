@@ -1,0 +1,621 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+    /* Contenedor principal */
+.warning-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+    text-align: left;
+}
+
+.warning-text strong {
+    color: red;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(255, 0, 0, 0.6),
+    0 0 6px rgba(255, 0, 0, 0.4);
+    animation: blink 1s infinite alternate;
+}
+
+/* Animación de parpadeo */
+@keyframes blink {
+    0% {
+        opacity: 1;
+        text-shadow: 0 0 3px rgba(255, 0, 0, 0.6),
+        0 0 6px rgba(255, 0, 0, 0.4);
+    }
+    100% {
+        opacity: 0.7;
+        text-shadow: 0 0 4px rgba(255, 0, 0, 0.8),
+        0 0 8px rgba(255, 0, 0, 0.5);
+    }
+}
+
+
+.product-presentations-container {
+    max-height: 250px; /* Ajusta la altura máxima según sea necesario */
+    overflow-y: auto;  /* Habilita el desplazamiento vertical */
+    overflow-x: hidden; /* Elimina el desplazamiento horizontal */
+}
+
+
+
+.header-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 1rem;
+}
+
+
+/* Contenedor de acciones */
+.actions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 640px) {
+    .actions-container {
+        flex-direction: row; /* Alinea en fila en pantallas grandes */
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+/* Campo de búsqueda */
+.form-container {
+    flex: 1; /* Ocupa todo el espacio disponible */
+}
+
+.mat-field-custom {
+    min-width: 300px; /* Aumenta el tamaño mínimo del campo */
+    max-width: 400px; /* Tamaño máximo */
+    width: 100%; /* Se adapta al contenedor */
+}
+
+
+
+.header-title {
+
+    margin-bottom: 1rem; /* Separación del título */
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.header-icon {
+    font-size: 1.8rem;
+}
+
+button {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor de la Tabla */
+.table-container {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    position: relative !important;
+    overflow: visible !important;
+    z-index: 1 !important;
+}
+
+
+/* Estilo de los tooltips */
+.mat-tooltip {
+    font-size: 14px !important;
+    font-weight: bold;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
+    white-space: nowrap !important;
+}
+
+.icon-action:hover {
+    transform: scale(1.2);
+    color: #4a90e2 !important;
+}
+
+/* Tooltips con colores personalizados según el icono */
+.tooltip-amber {
+    background-color: #fbbf24 !important; /* Amarillo */
+    color: #000 !important;
+}
+
+.tooltip-green {
+    background-color: #10b981 !important; /* Verde */
+    color: white !important;
+}
+
+.tooltip-red {
+    background-color: #f87171 !important; /* Rojo */
+    color: white !important;
+}
+
+/* Ajuste para iconos y tooltips */
+.icon-action {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    font-size: 24px !important;
+    position: relative !important; /* Asegura que el tooltip se renderice bien */
+}
+
+/* Tabla */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    color: #4b5563;
+    border-radius: 0.5rem; /* Bordes redondeados */
+    overflow: hidden; /* Asegura que los bordes redondeados afecten a la tabla */
+}
+
+/* Encabezado de la Tabla */
+.custom-table thead th {
+    color: #ffffff; /* Texto blanco */
+    padding: 0.5rem 1rem;
+    text-align: center;
+    border: 1px solid #1d4ed8; /* Azul más oscuro */
+    position: relative !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+
+}
+
+/* Cuerpo de la Tabla */
+.custom-table tbody tr {
+    background-color: #ffffff; /* Blanco */
+    transition: background-color 0.3s ease; /* Efecto hover */
+}
+
+.custom-table tbody tr:hover {
+    background-color: #ebf8ff; /* Azul claro en hover */
+}
+
+.custom-table tbody td {
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #e5e7eb; /* Línea gris clara */
+    text-align: center; /* Centrar contenido */
+}
+
+.custom-table tbody td:first-child {
+    text-align: center; /* Centrar el primer campo */
+}
+
+.custom-table tbody td:last-child {
+    text-align: center; /* Centrar acciones */
+}
+
+/* Estado Activo/Inactivo */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px; /* Forma redonda */
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.badge-active {
+    background-color: #10b981; /* Verde */
+    color: #ffffff; /* Blanco */
+}
+
+.badge-inactive {
+    background-color: #f87171; /* Rojo */
+    color: #ffffff; /* Blanco */
+}
+
+/* Botones de Acción */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.action-buttons mat-icon {
+    cursor: pointer;
+    transition: color 0.3s ease; /* Efecto hover */
+}
+
+.action-buttons mat-icon:hover {
+    transform: scale(1.1); /* Agrandar ligeramente */
+}
+
+.edit-icon {
+    color: #fbbf24; /* Amarillo */
+}
+
+.edit-icon:hover {
+    color: #f59e0b; /* Amarillo más oscuro */
+}
+
+.delete-icon {
+    color: #f87171; /* Rojo */
+}
+
+.delete-icon:hover {
+    color: #ef4444; /* Rojo más oscuro */
+}
+
+
+
+
+
+
+
+
+/* Contenedor con scroll vertical */
+.max-h-96 {
+    max-height: 24rem; /* Limitar la altura del contenedor (24 rem ≈ 384px) */
+    overflow-y: auto; /* Scroll vertical si excede el límite */
+}
+
+/* Ajuste de barras de scroll */
+.max-h-96::-webkit-scrollbar {
+    width: 6px; /* Ancho de la barra de desplazamiento */
+}
+/* Clase base para las etiquetas */
+.badge-status {
+    padding: 2px 6px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}.custom-confirm-button {
+     background-color: #28a745; /* Verde */
+     color: #fff; /* Texto blanco */
+     border: none;
+     border-radius: 5px;
+     font-weight: bold;
+     padding: 10px 20px;
+     transition: background-color 0.3s ease;
+ }
+
+.custom-confirm-button:hover {
+    background-color: #218838; /* Verde más oscuro */
+}
+
+.custom-confirm-button:focus {
+    outline: none;
+    box-shadow: 0 0 3px #28a745;
+}
+
+
+.badge-active {
+    background-color: #007bff; /* Azul */
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.4); /* Sombra elegante */
+}
+
+.badge-inactive {
+    background-color: #dc3545; /* Rojo */
+    box-shadow: 0 4px 6px rgba(220, 53, 69, 0.4); /* Sombra elegante */
+}
+
+.badge-status:hover {
+    transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+    cursor: pointer;
+}
+
+ .input-focus {
+     outline: none;
+     transition: border 1s ease;
+ }
+.input-focus:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+
+.max-h-96::-webkit-scrollbar-thumb {
+    background: #d1d5db; /* Color del scroll */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+.max-h-96::-webkit-scrollbar-thumb:hover {
+    background: #a3a3a3; /* Color al pasar el cursor */
+}
+
+.mat-calendar-table-header th {
+    color: white !important; /* Cambia específicamente las letras de los días */
+}
+
+.adjusted-select {
+    width: 100%; /* Ajusta al ancho de la celda */
+    height: 50px; /* Mayor altura */
+}
+
+.adjusted-select .mat-form-field-wrapper {
+    padding: 0;
+    height: 30px; /* Igual altura que el contenedor */
+}
+
+.mat-select-trigger {
+    font-size: 14px; /* Ajusta el tamaño de fuente */
+    height: 30px; /* Más largo */
+    line-height: 30px; /* Centra verticalmente */
+    margin: 0;
+    padding: 0 8px; /* Espaciado interno horizontal */
+}
+
+.mat-option {
+    font-size: 14px; /* Fuente consistente con el texto */
+}
+
+table td {
+    overflow: hidden; /* Evita que el contenido salga de los bordes */
+    text-overflow: ellipsis; /* Añade puntos suspensivos si el texto es demasiado largo */
+    white-space: nowrap; /* Mantiene el texto en una sola línea */
+}
+
+.form-field {
+    width: 100%; /* Asegura que el campo ocupe todo el ancho disponible */
+}
+
+.full-width mat-select {
+    min-width: 200px; /* Establece un ancho mínimo para el desplegable */
+    font-size: 14px; /* Ajusta el tamaño de la fuente */
+    padding: 10px; /* Mejora el espacio interior */
+}
+
+.full-width .mat-select-trigger {
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+}
+
+.mat-header-cell,
+.mat-cell {
+    text-align: left;
+    padding: 8px;
+}
+
+.mat-checkbox {
+    margin-right: 8px;
+}
+
+
+
+.toggle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 10px; /* Espacio entre los toggles */
+    padding: 10px 0;
+}
+
+.toggle-grid mat-slide-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-group mat-slide-toggle {
+    flex: 1 1 calc(33.333% - 10px); /* 3 columnas */
+    min-width: 200px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 16px;
+    width: 900px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.form-field {
+    flex: 1;
+}
+
+.dynamic-header, .dynamic-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.dynamic-header {
+    font-weight: bold;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.dynamic-row {
+    margin: 8px 0;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+button {
+    font-size: 1rem;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.treeview-container {
+    margin: 20px;
+}
+
+mat-icon {
+    cursor: pointer;
+}
+
+.dynamic-header {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.header-number, .dynamic-number {
+    min-width: 30px;
+    text-align: center;
+}
+
+.header-field {
+    flex: 1;
+    text-align: left;
+}
+
+.dynamic-form-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.dynamic-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dynamic-index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 8px;
+    width: 30px;
+}
+
+.toolbar {
+    margin-bottom: 15px;
+}
+
+.btn {
+    margin-right: 10px;
+}
+
+.node-header {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.toggle-button {
+    margin-right: 10px;
+}
+
+.node-actions {
+    margin-left: auto;
+}
+
+.node-children {
+    margin-left: 20px;
+    border-left: 1px solid #ccc;
+    padding-left: 10px;
+}
+.treeview-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.tree-node {
+    margin-bottom: 10px;
+}
+
+.node-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.toggle-button {
+    margin-right: 10px;
+}
+
+.node-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.node-children {
+    margin-left: 20px;
+    padding-left: 10px;
+    border-left: 2px solid #ddd;
+}
+.tree-node {
+    margin-bottom: 10px;
+}
+
+.node-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.node-header:hover {
+    background-color: #f0f4ff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.node-actions button {
+    margin-left: 8px;
+}
+
+.node-children {
+    margin-top: 10px;
+    padding-left: 16px;
+    border-left: 2px solid #e5e7eb;
+}

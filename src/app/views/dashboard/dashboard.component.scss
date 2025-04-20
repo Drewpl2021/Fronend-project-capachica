@@ -1,0 +1,28 @@
+.arrow-container-dashboar {
+    position: fixed;
+    top: 260px;
+    left: 1605px;
+    z-index: 50;
+    animation: bounceGlow-dashboar 1.5s infinite alternate ease-in-out;
+}
+
+.arrow-svg-dashboar {
+    filter: drop-shadow(0px 0px 12px #00d4ff); /* 🔥 Brillo azul-turquesa */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 🔥 Efecto de animación más fluida con resplandor azul */
+@keyframes bounceGlow-dashboar {
+    0% {
+        transform: translateY(0);
+        filter: drop-shadow(0px 0px 12px #00d4ff);
+    }
+    50% {
+        transform: translateY(-10px);
+        filter: drop-shadow(0px 0px 20px #007bff);
+    }
+    100% {
+        transform: translateY(0);
+        filter: drop-shadow(0px 0px 12px #00d4ff);
+    }
+}
