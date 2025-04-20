@@ -152,19 +152,8 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
      */
     showmenu(): void {
         this._moduleService.getMenu$().subscribe(response => {
-            this.navigation = response.map((item: any) => ({
-                id: item.title.toLowerCase(),
-                title: item.title,
-                type: 'group', // Agrupa los módulos
-                icon: item.icon,
-                children: item.modules.map((mod: any) => ({
-                    id: mod.id,
-                    title: mod.title,
-                    type: 'basic', // Enlace directo
-                    icon: mod.icon,
-                    link: mod.link,
-                }))
-            }));
+            this.navigation = response;
+            //console.log(this.navigation)
         });
     }
 
