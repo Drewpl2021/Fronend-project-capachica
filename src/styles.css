@@ -1,0 +1,5 @@
+.hero-wrap {
+    min-height: 500px; /* Ajusta según el tamaño de la imagen */
+    background-size: cover;
+    background-position: center center;
+}
