@@ -12,7 +12,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {CommonModule, JsonPipe} from "@angular/common";
 
 @Component({
-    selector: 'app-module-new',
+    selector: 'app-company-new',
     standalone: true,
     imports: [
         FormsModule,
@@ -44,7 +44,7 @@ import {CommonModule, JsonPipe} from "@angular/common";
             <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
                   [formGroup]="moduleForm">
                 <mat-form-field>
-                    <mat-label>Nombre del Módulo</mat-label>
+                    <mat-label>Módulo Padre</mat-label>
                     <input type="text" matInput [formControlName]="'title'"/>
                 </mat-form-field>
 
@@ -68,7 +68,7 @@ import {CommonModule, JsonPipe} from "@angular/common";
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>type</mat-label>
-                    <input type="text" matInput [formControlName]="'type'" readonly  />
+                    <input type="text" matInput [formControlName]="'type'"/>
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Parent Módulo</mat-label>
@@ -78,9 +78,7 @@ import {CommonModule, JsonPipe} from "@angular/common";
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-slide-toggle [formControlName]="'status'"
-                                  [color]="'primary'"
-                ></mat-slide-toggle>
+
                 <!-- Actions -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
@@ -104,7 +102,7 @@ import {CommonModule, JsonPipe} from "@angular/common";
         </div>
     `,
 })
-export class ModuleNewComponent implements OnInit {
+export class CompanyNewComponent implements OnInit {
     @Input() title: string = '';
     public parentModules: ParentModule[] = [];
     abcForms: any;
@@ -115,13 +113,11 @@ export class ModuleNewComponent implements OnInit {
         link: new FormControl('', [Validators.required,]),
         parentModuleId: new FormControl('', [Validators.required,]),
         subtitle: new FormControl(''),
-        type: new FormControl('basic', [Validators.required,]),
-        status: new FormControl(true, [Validators.required]),
-
+        type: new FormControl('', [Validators.required,]),
     });
 
     constructor(
-        private _matDialog: MatDialogRef<ModuleNewComponent>
+        private _matDialog: MatDialogRef<CompanyNewComponent>
     ) {
     }
 
