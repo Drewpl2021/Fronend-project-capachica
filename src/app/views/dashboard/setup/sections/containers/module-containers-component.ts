@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Module, ModuleFilter, PaginatedResponse} from '../models/module';
 import {ModuleListComponent} from '../components/lists/module-list.component';
 import {MatDialog} from '@angular/material/dialog';
-import {ModuleNewComponent} from '../components/form/module-new.component';
 
 import {PaginationControlsComponent} from "../../../../../shared/pagination-controls/pagination-controls.component";
 import {PaginationEvent} from "../../../../../shared/pagination-controls/models/PaginationEvent";
@@ -12,6 +11,8 @@ import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm
 import {ModuleService} from "../../../../../providers/services/setup/module.service";
 import {ParentModuleService} from "../../../../../providers/services/setup/parent-module.service";
 import {ParentModule} from "../../parentModule/models/parent-module";
+import {SectionsService} from "../../../../../providers/services/setup/sections.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-module-container',
@@ -22,13 +23,13 @@ import {ParentModule} from "../../parentModule/models/parent-module";
         <div class="w-full mx-auto p-6 bg-white rounded overflow-hidden shadow-lg">
             <div class="flex flex-col md:min-w-160 max-h-screen -m-6">
                 <app-module-filter
-                    (eventFilter)="eventFilter($event)"
-                    (eventNew)="eventNew($event)">
+                    (eventFilter)="eventFilter($event)">
                 </app-module-filter>
             </div>
             <app-module-list
                 class="w-full"
                 [modules]="modules"
+                (eventView)="eventView($event)"
                 (eventEdit)="eventEdit($event)"
                 (eventDelete)="eventDelete($event)"
             ></app-module-list>
@@ -52,10 +53,12 @@ export class ModuleContainersComponent implements OnInit {
     size: number = 10;
 
     constructor(
-        private _moduleService: ModuleService,
+        private _moduleService: SectionsService,
         private _parentModuleService: ParentModuleService,
         private _confirmDialogService: ConfirmDialogService,
-        private _matDialog: MatDialog
+        private _matDialog: MatDialog,
+        private router: Router,
+        private route: ActivatedRoute
     ) {
     }
 
@@ -95,7 +98,7 @@ export class ModuleContainersComponent implements OnInit {
     }
 
     private getModule(data?: any): void {
-        this._moduleService.getWithPage$(data).subscribe(
+        this._moduleService.getWithQuery$(data).subscribe(
             (response) => {
                 this.paginatedResponse = response;
                 this.modules = this.paginatedResponse.content;
@@ -106,27 +109,6 @@ export class ModuleContainersComponent implements OnInit {
         );
     }
 
-    public eventNew($event: boolean): void {
-        if ($event) {
-            const moduleForm = this._matDialog.open(ModuleNewComponent);
-            moduleForm.componentInstance.title = 'Nuevo Mudulo' || null;
-            moduleForm.componentInstance.parentModules = this.parentModules;
-            moduleForm.afterClosed().subscribe((result: any) => {
-                if (result) {
-                    this.save(result);
-                }
-            });
-        }
-    }
-
-    private save(data: Object) {
-        this._moduleService.add$(data).subscribe((response) => {
-            if (response) {
-                this.getModule();
-            }
-        }, (error) => {
-        });
-    }
 
     public eventEdit(id: string) {
         this._moduleService.getById$(id).subscribe((response) => {
@@ -142,6 +124,12 @@ export class ModuleContainersComponent implements OnInit {
                 }
             });
         });
+    }
+    public eventView(id: string): void {
+        if (id) {
+            this.router.navigate([`view-sections/${id}`], { relativeTo: this.route }).then((success) => {
+            });
+        }
     }
 
     public eventDelete(id: string) {

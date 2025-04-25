@@ -16,6 +16,10 @@ export default [
             {path: 'module', loadChildren: () => import('./module/module-routers')},
             {path: 'company', loadChildren: () => import('./company/company-routers')},
             {path: 'listCompany', loadChildren: () => import('./listCompany/company-routers')},
+            {path: 'municipalidad', loadChildren: () => import('./municipalidad/municipalidad-routers')},
+            {path: 'sections', loadChildren: () => import('./sections/sections-routers')},
+
+
         ],
     },
 ] as Routes;

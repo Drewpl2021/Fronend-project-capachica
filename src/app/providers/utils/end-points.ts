@@ -12,9 +12,13 @@ export const END_POINTS = {
         company:'company',
     },
     setup: {
+        sectionDetailEnds:'sectionDetailEnds',
+        sectionDetails:'sectionDetails',
+        sections:'sections',
         parentModule:'parent-module',
         companyUserRole:'company-user-role',
         module:'module',
+        municipalidad:'municipalidad',
         company:'company',
         listCompany: 'listCompany',
         companyuser:'companyuser',

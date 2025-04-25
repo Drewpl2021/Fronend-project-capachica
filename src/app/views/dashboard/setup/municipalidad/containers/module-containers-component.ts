@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Module, ModuleFilter, PaginatedResponse} from '../models/module';
+import {Module, ModuleFilter, MunicipaldiadDescripcion, PaginatedResponse} from '../models/module';
 import {ModuleListComponent} from '../components/lists/module-list.component';
 import {MatDialog} from '@angular/material/dialog';
 import {ModuleNewComponent} from '../components/form/module-new.component';
@@ -12,6 +12,7 @@ import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm
 import {ModuleService} from "../../../../../providers/services/setup/module.service";
 import {ParentModuleService} from "../../../../../providers/services/setup/parent-module.service";
 import {ParentModule} from "../../parentModule/models/parent-module";
+import {MunicipalidadService} from "../../../../../providers/services/setup/municipalidad.service";
 
 @Component({
     selector: 'app-module-container',
@@ -28,7 +29,8 @@ import {ParentModule} from "../../parentModule/models/parent-module";
             </div>
             <app-module-list
                 class="w-full"
-                [modules]="modules"
+                [municipalidad]="municipalidad"
+                [municipalidadDirec]="municipalidadDirec"
                 (eventEdit)="eventEdit($event)"
                 (eventDelete)="eventDelete($event)"
             ></app-module-list>
@@ -43,7 +45,8 @@ import {ParentModule} from "../../parentModule/models/parent-module";
 })
 export class ModuleContainersComponent implements OnInit {
     public error: string = '';
-    public modules: Module[] = [];
+    public municipalidad: Module[] = [];
+    public municipalidadDirec: MunicipaldiadDescripcion[] = [];
     public paginationEvent = new PaginationEvent();
     public moduleFilter: ModuleFilter;
     public parentModules: ParentModule[] = [];
@@ -52,7 +55,7 @@ export class ModuleContainersComponent implements OnInit {
     size: number = 10;
 
     constructor(
-        private _moduleService: ModuleService,
+        private _moduleService: MunicipalidadService,
         private _parentModuleService: ParentModuleService,
         private _confirmDialogService: ConfirmDialogService,
         private _matDialog: MatDialog
@@ -95,10 +98,19 @@ export class ModuleContainersComponent implements OnInit {
     }
 
     private getModule(data?: any): void {
-        this._moduleService.getWithPage$(data).subscribe(
+        this._moduleService.getWithQuery$(data).subscribe(
             (response) => {
                 this.paginatedResponse = response;
-                this.modules = this.paginatedResponse.content;
+                this.municipalidad = this.paginatedResponse.content;
+            },
+            (error) => {
+                this.error = error;
+            }
+        );
+        this._moduleService.getWithQueryDescription$(data).subscribe(
+            (response) => {
+                this.paginatedResponse = response;
+                this.municipalidadDirec = this.paginatedResponse.content;
             },
             (error) => {
                 this.error = error;
