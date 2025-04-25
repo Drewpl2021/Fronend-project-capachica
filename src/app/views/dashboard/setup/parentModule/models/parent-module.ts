@@ -2,11 +2,11 @@ import {Module} from "../../module/models/module";
 
 
 export class ParentModule {
+    id?: string; // UUID
     createdAt?: string;
     deleted?: boolean;
     deletedAt?: string | null;
     icon?: string;
-    id?: string; // UUID
     moduleOrder?: number;
     title?: string;
     status?: boolean;

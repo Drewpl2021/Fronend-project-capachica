@@ -3,14 +3,10 @@ import {Module} from "../../module/models/module";
 export class Role {
     id?: string;
     name?: string;
-    description?: string;
-    status?: boolean;
-    modules?: Module[];
-    deleted?: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
-    deletedAt?: Date | null;
-    selected?: boolean;
+    guard_name?: string;
+    created_at?: Date;
+    updated_at?: Date;
+    deleted_at?: Date | null;
 }
 
 

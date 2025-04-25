@@ -8,14 +8,6 @@ import { CommonModule } from '@angular/common';
     selector: 'landing-home',
     templateUrl: './home.component.html', // Esto asegura que los estilos se apliquen globalmente
     styleUrls: [
-        '../../../../assets/css/animate.css',
-        '../../../../assets/css/owl.carousel.min.css',
-        '../../../../assets/css/owl.theme.default.min.css',
-        '../../../../assets/css/magnific-popup.css',
-        '../../../../assets/css/bootstrap-datepicker.css',
-        '../../../../assets/css/jquery.timepicker.css',
-        '../../../../assets/css/flaticon.css',
-        '../../../../assets/css/style.css'
     ],
     standalone: true,
     imports: [

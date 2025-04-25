@@ -36,7 +36,6 @@
                             "lodash",
                             "pdfmake/build/pdfmake",
                             "pdfmake/build/vfs_fonts",
-
                             "sweetalert2"
                         ],
                         "assets": [
