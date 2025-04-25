@@ -16,6 +16,7 @@ export const END_POINTS = {
         companyUserRole:'company-user-role',
         module:'module',
         company:'company',
+        municipalidad:'municipalidad',
         listCompany: 'listCompany',
         companyuser:'companyuser',
         companyuseradmin:'company-user-admin',

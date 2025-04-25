@@ -15,6 +15,7 @@ export default [
             {path: 'parent-module', loadChildren: () => import('./parentModule/parent-module-routers')},
             {path: 'module', loadChildren: () => import('./module/module-routers')},
             {path: 'company', loadChildren: () => import('./company/company-routers')},
+            {path: 'municipalidad', loadChildren: () => import('./municipalidad/municipalidad-routers')},
             {path: 'listCompany', loadChildren: () => import('./listCompany/company-routers')},
         ],
     },

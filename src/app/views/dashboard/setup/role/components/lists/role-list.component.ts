@@ -47,8 +47,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             @for (role of roles; track role.id; let idx = $index) {
                 <tr class="hover:bg-gray-100">
                     <td class="p-2 border text-center">{{ idx + 1 }}</td>
-                    <td class="p-2 border text-start text-sm">{{ role.company.ruc }}</td>
-                    <td class="p-2 border text-start text-sm">{{ role.company.companyName }}</td>
                     <td class="p-2 border text-start text-sm">{{ role.name }}</td>
                     <td class="p-2 border text-start text-sm">{{ role.description }}</td>
                     <td class="p-2 border text-start text-sm">{{ role.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}</td>
@@ -110,8 +108,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
             <div class="border mb-3 rounded-lg shadow-md overflow-hidden">
                 <div class="bg-gray-800 text-white p-3 font-bold">{{ idx + 1 }}</div>
                 <div class="grid grid-cols-2 gap-x-3 gap-y-2 p-3">
-                    <div class="font-semibold text-gray-600">RUC</div> <div>{{ role.company.ruc }}</div>
-                    <div class="font-semibold text-gray-600">Razón Social</div> <div>{{ role.company.companyName }}</div>
                     <div class="font-semibold text-gray-600">Rol</div> <div>{{ role.name }}</div>
                     <div class="font-semibold text-gray-600">Rol Descripción</div> <div>{{ role.description }}</div>
                     <div class="font-semibold text-gray-600">Fecha Creación</div>

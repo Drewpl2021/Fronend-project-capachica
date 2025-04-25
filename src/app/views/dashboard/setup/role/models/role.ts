@@ -1,4 +1,3 @@
-import {Company} from "./company";
 import {Module} from "../../module/models/module";
 
 export class Role {
@@ -6,7 +5,6 @@ export class Role {
     name?: string;
     description?: string;
     status?: boolean;
-    company?: Company;
     modules?: Module[];
     deleted?: boolean;
     createdAt?: Date;
