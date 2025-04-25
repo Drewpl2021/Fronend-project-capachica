@@ -1,33 +1,31 @@
-import {ParentModule} from "../../parentModule/models/parent-module";
 
 export class Module {
-    createdAt?: string;
-    deleted?: boolean;
-    deletedAt?: string | null;
-    icon?: string;
-
-
-
     id?: string;
-    provincia?: string;
     distrito?: string;
+    provincia?: string;
     region?: string;
     codigo?: string;
-
-
-
-
-    moduleOrder?: number;
-    title?: string;
-    status?: boolean;
+    createdAt?: string;
     updatedAt?: string;
-    link?: string;
-    parentModuleId?: string;
-    parentModule?: ParentModule;
-    assigned?: boolean;
-    selected?: boolean;
+    deletedAt?: string | null;
+
+
 }
 
+export class MunicipaldiadDescripcion {
+    id?: string;
+    municipalidad_id?: string;
+    logo?: string;
+    direccion?: string;
+    descripcion?: string;
+    ruc?: string;
+    correo?: string;
+    nombre_alcalde?: string;
+    anio_gestion?: string;
+    createdAt?: string;
+    updatedAt?: string;
+
+}
 
 export class PaginatedResponse {
     totalPages?: number;

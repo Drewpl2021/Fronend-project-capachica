@@ -23,23 +23,8 @@ import {MatInputModule} from '@angular/material/input';
     template: `
         <div class="header-container ">
             <div class="header-title bg-primary-600">
-                <span>Municipalidad</span>
-            </div>
-            <div class="actions-container">
-                <form class="flex flex-col sm:flex-row items-center space-x-4 space-y-4 sm:space-y-0 w-full" [formGroup]="moduleFilterForm">
-                    <div class="flex-1">
-                        <mat-form-field class="mat-field-custom fuse-mat-dense fuse-mat-rounded w-full">
-                            <mat-icon matPrefix [svgIcon]="'heroicons_solid:magnifying-glass'" class="icon-size-5"></mat-icon>
-                            <input type="text" matInput [formControlName]="'name'" [autocomplete]="'off'" [placeholder]="'Buscar Municipalidad'"/>
-                        </mat-form-field>
-                    </div>
-                </form>
-                <div class="flex items-center">
-                    <button class="action-button" mat-flat-button [color]="'primary'" (click)="goNew()" >
-                        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-                        <span class="ml-2">Nueva Municipalidad</span>
-                    </button>
-                </div>
+                <span class="header-icon">📋</span>
+                <span>Lista de Secciones</span>
             </div>
         </div>
     `,

@@ -33,7 +33,7 @@ import {NgForOf} from "@angular/common";
             <!-- Header -->
             <div
                 class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-                <div class="text-lg font-medium">Editar Módulo</div>
+                <div class="text-lg font-medium">Editar Municipalidad</div>
                 <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
                     <mat-icon
                         class="text-current"
@@ -46,44 +46,24 @@ import {NgForOf} from "@angular/common";
             <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
                   [formGroup]="moduleForm">
                 <mat-form-field>
-                    <mat-label>Modulo Padre</mat-label>
-                    <input type="text" matInput [formControlName]="'title'"/>
+                    <mat-label>Distrito</mat-label>
+                    <input type="text" matInput [formControlName]="'distrito'"/>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Icono</mat-label>
-                    <input type="email" matInput [formControlName]="'icon'"/>
+                    <mat-label>Provincia</mat-label>
+                    <input type="email" matInput [formControlName]="'provincia'"/>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Orden</mat-label>
-                    <input type="text" matInput [formControlName]="'moduleOrder'"/>
+                    <mat-label>Region</mat-label>
+                    <input type="text" matInput [formControlName]="'region'"/>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Url</mat-label>
-                    <input type="text" matInput [formControlName]="'link'"/>
+                    <mat-label>Codigo</mat-label>
+                    <input type="text" matInput [formControlName]="'codigo'"/>
                 </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Parent Module</mat-label>
-                    <mat-select [formControlName]="'parentModuleId'" placeholder="Select Parent Module">
-                        <mat-option *ngFor="let parentModule of parentModules" [value]="parentModule.id">
-                            {{ parentModule.title }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-slide-toggle [formControlName]="'status'"
-                    [color]="'primary'"
-                ></mat-slide-toggle>
-                <mat-form-field>
-                    <mat-label>subtitle</mat-label>
-                    <input type="text" matInput [formControlName]="'subtitle'"/>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>type</mat-label>
-                    <input type="text" matInput [formControlName]="'type'"/>
-                </mat-form-field>
-
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
                         <button class="ml-auto sm:ml-0"
@@ -112,15 +92,10 @@ export class ModuleEditComponent implements OnInit {
     public parentModules: ParentModule[] = [];
     abcForms: any;
     moduleForm = new FormGroup({
-        title: new FormControl('', [Validators.required]),
-        icon: new FormControl('', [Validators.required]),
-        moduleOrder: new FormControl(null, [Validators.required,]),
-        link: new FormControl('', [Validators.required,]),
-        status: new FormControl(true, [Validators.required]),
-        parentModuleId: new FormControl('', [Validators.required,]),
-        subtitle: new FormControl(''),
-        type: new FormControl('', [Validators.required,]),
-
+        distrito: new FormControl('', [Validators.required]),
+        provincia: new FormControl('', [Validators.required]),
+        region: new FormControl('', [Validators.required,]),
+        codigo: new FormControl('', [Validators.required,]),
     });
 
     constructor(
@@ -130,7 +105,6 @@ export class ModuleEditComponent implements OnInit {
 
     ngOnInit() {
         this.abcForms = abcForms;
-        this.module.parentModuleId=this.module.parentModule.id;
         this.moduleForm.patchValue(this.module);
 
     }

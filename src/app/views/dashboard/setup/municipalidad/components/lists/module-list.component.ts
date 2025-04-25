@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {abcForms} from '../../../../../../../environments/generals';
-import {Module} from '../../models/module';
+import {Module, MunicipaldiadDescripcion} from '../../models/module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -9,6 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {CommonModule, DatePipe} from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MunicipalidadService} from "../../../../../../providers/services/setup/municipalidad.service";
 
 @Component({
     selector: 'app-module-list',
@@ -26,99 +27,132 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatTooltipModule
     ],
     template: `
-        <br>
-        <br>
-        <div class="table-container">
-            <table class="custom-table">
-                <thead>
-                <tr class="bg-primary-600 text-white">
-                    <th class="w-1/9 table-head text-center border-r">#</th>
-                    <th class="w-1/9 table-header text-center border-r">Módulo Padre</th>
-                    <th class="w-1/9 table-header text-center border-r">Ícono Padre</th>
-                    <th class="w-1/9 table-header text-center border-r">Módulo</th>
-                    <th class="w-1/9 table-header text-center border-r">Icono</th>
-                    <th class="w-1/9 table-header text-center border-r">Url</th>
-                    <th class="w-1/9 table-header text-center border-r">Fecha Creación</th>
-                    <th class="w-1/9 table-header text-center border-r">Estado</th>
-                    <th class="w-1/9 table-header text-center border-r">Acciones</th>
-                </tr>
-                </thead>
-                <tbody class="bg-white">
-                    @for (module of modules; track module.id; let idx = $index) {
-                        <tr class="hover:bg-gray-100">
-                            <td class="w-1/9 p-2 text-center border-b">
-                                {{ idx + 1 }}
-                            </td>
-                            <td class="w-1/9 p-2 text-start border-b text-sm">
-                                {{ module.parentModule.title }}
-                            </td>
-                            <td class="w-1/9 p-2 text-start border-b text-sm">
-                                {{ module.parentModule.icon }}
-                            </td>
-                            <td class="w-1/9 p-2 text-start border-b text-sm">
-                                {{ module.title }}
-                            </td>
-                            <td class="w-1/9 p-2 text-start border-b text-sm">
-                                {{ module.icon }}
-                            </td>
-                            <td class="w-1/9 p-2 text-start border-b text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">
-                                {{ module.link }}
-                            </td>
+        <div>
+            <br>
+            <div class="cards-container" [ngStyle]="{ 'display': 'grid', 'grid-template-columns': 'repeat(auto-fill, minmax(300px, 1fr))', 'gap': '20px', 'padding': '20px' }">
+                <div *ngFor="let municipalidad of municipalidad; let idx = index" class="card-container" [ngStyle]="{ 'display': 'flex', 'justify-content': 'center' }">
+                    <div class="card"
+                         [ngStyle]="{
+                    'width': '100%',
+                    'max-width': '350px',
+                    'transition': 'transform 0.3s ease-in-out',
+                    'background-color': 'white',
+                    'border': '1px solid #ddd',
+                    'border-radius': '8px',
+                    'box-shadow': '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    'padding': '20px',
+                    'margin-bottom': '20px'
+                }">
+                        <div class="text-center" [ngStyle]="{ 'font-size': '1.25rem', 'font-weight': 'bold', 'margin-bottom': '10px' }">
+                            Nombre de la Municipalidad
+                        </div>
 
-                            <td class="w-1/9 p-2 text-start border-b text-sm">
-                                {{ module.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
-                            </td>
-                            <td class="w-1/9 p-2 text-center border-b text-sm">
-                                <div class="w-max">
-                                    <div
-                                        class="relative grid items-center font-sans font-bold uppercase whitespace-nowrap select-none bg-{{module.status===true?'green':'red'}}-500/20 text-{{module.status===true?'green':'red'}}-600 py-1 px-2 text-xs rounded-md"
-                                        style="opacity: 1">
-                                        <span class="">{{ module.status === true ? 'ACTIVO' : 'INACTIVO' }}</span>
-                                    </div>
-                                </div>
-                            </td>
+                        <div class="text-sm mb-2">
+                            <strong>Código: </strong>{{ municipalidad.codigo }}
+                        </div>
+                        <div class="text-sm mb-2">
+                            <strong>Distrito: </strong>{{ municipalidad.distrito }}
+                        </div>
+                        <div class="text-sm mb-2">
+                            <strong>Provincia: </strong>{{ municipalidad.provincia }}
+                        </div>
+                        <div class="text-sm mb-2">
+                            <strong>Región: </strong>{{ municipalidad.region }}
+                        </div>
+                        <div class="text-center">
+                            <button
+                                [ngStyle]="{
+                            'background-color': 'transparent',
+                            'border': 'none',
+                            'cursor': 'pointer',
+                            'font-weight': '600',
+                            'color': '#FBBF24',
+                            'transition': 'color 0.3s ease-in-out'
+                        }"
+                                (click)="goEdit(municipalidad.id)"
+                                matTooltip="Editar Módulo"
+                                matTooltipClass="tooltip-edit"
+                                matTooltipPosition="above">
+                                Editar
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-                            <td class="w-1/9 p-2 text-center border-b text-sm">
-                                <div class="flex justify-center space-x-3">
-                                    <!-- Botón de edición con tooltip -->
-                                    <mat-icon
-                                        matTooltip="Editar Módulo"
-                                        matTooltipClass="tooltip-edit"
-                                        matTooltipPosition="above"
-                                        class="text-amber-400 hover:text-amber-500 cursor-pointer"
-                                        (click)="goEdit(module.id)">
-                                        edit
-                                    </mat-icon>
+                <!-- Si no hay datos -->
+                <div *ngIf="municipalidad.length === 0" class="text-center" [ngStyle]="{ 'color': '#6B7280' }">
+                    No hay municipios registrados.
+                </div>
+            </div>
 
-                                    <!-- Botón de eliminación con tooltip -->
-                                    <mat-icon
-                                        matTooltip="Eliminar Módulo"
-                                        matTooltipClass="tooltip-delete"
-                                        matTooltipPosition="above"
-                                        class="text-rose-500 hover:text-rose-600 cursor-pointer"
-                                        (click)="goDelete(module.id)">
-                                        delete_sweep
-                                    </mat-icon>
-                                </div>
-                            </td>
+            <!--<div class="cards-container" [ngStyle]="{ 'display': 'grid', 'grid-template-columns': 'repeat(auto-fill, minmax(300px, 1fr))', 'gap': '20px', 'padding': '20px' }">
+                <div *ngFor="let municipalidadDirec of municipalidadDirec; let idx = index" class="card-container" [ngStyle]="{ 'display': 'flex', 'justify-content': 'center' }">
+                    <div class="card"
+                         [ngStyle]="{
+                    'width': '100%',
+                    'max-width': '350px',
+                    'transition': 'transform 0.3s ease-in-out',
+                    'background-color': 'white',
+                    'border': '1px solid #ddd',
+                    'border-radius': '8px',
+                    'box-shadow': '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    'padding': '20px',
+                    'margin-bottom': '20px'
+                }">
+                        <div class="text-center" [ngStyle]="{ 'font-size': '1.25rem', 'font-weight': 'bold', 'margin-bottom': '10px' }">
+                            Descripcion de la Municipalidad
+                        </div>
 
-                        </tr>
-                    } @empty {
-                        <tr>
-                            <td colspan="9" class="text-center">
-                                Sin Contenido
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                        <div class="text-sm mb-2">
+                            <strong>Dirección: </strong>{{ municipalidadDirec.direccion }}
+                        </div>
+                        <div class="text-sm mb-2">
+                            <strong>Descripcion: </strong>{{ municipalidadDirec.descripcion }}
+                        </div>
+                        <div class="text-sm mb-2">
+                            <strong>Ruc: </strong>{{ municipalidadDirec.ruc }}
+                        </div>
+                        <div class="text-sm mb-2">
+                            <strong>Correo: </strong>{{ municipalidadDirec.correo }}
+                        </div>
+                        <div class="text-sm mb-2">
+                            <strong>Alcalde: </strong>{{ municipalidadDirec.nombre_alcalde }}
+                        </div>
+                        <div class="text-sm mb-2">
+                            <strong>Gestion: </strong>{{ municipalidadDirec.anio_gestion }}
+                        </div>
+                        <div class="text-center">
+                            <button
+                                [ngStyle]="{
+                            'background-color': 'transparent',
+                            'border': 'none',
+                            'cursor': 'pointer',
+                            'font-weight': '600',
+                            'color': '#FBBF24',
+                            'transition': 'color 0.3s ease-in-out'
+                        }"
+                                (click)="goEdit(municipalidadDirec.id)"
+                                matTooltip="Editar Módulo"
+                                matTooltipClass="tooltip-edit"
+                                matTooltipPosition="above">
+                                Editar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="municipalidadDirec.length === 0" class="text-center" [ngStyle]="{ 'color': '#6B7280' }">
+                    No hay municipios registrados.
+                </div>
+            </div>-->
+            <br>
         </div>
-        <br>
     `,
 })
 export class ModuleListComponent implements OnInit {
     abcForms: any;
-    @Input() modules: Module[] = [];
+    @Input() municipalidad: Module[] = [];
+    @Input() municipalidadDirec: MunicipaldiadDescripcion[] = [];
     @Output() eventEdit = new EventEmitter<string>();
     @Output() eventDelete = new EventEmitter<string>();
 
