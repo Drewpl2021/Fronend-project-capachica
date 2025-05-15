@@ -21,6 +21,7 @@ export default [
             {path: 'municipalidad', loadChildren: () => import('./municipalidad/municipalidad-routers')},
             {path: 'sections', loadChildren: () => import('./sections/sections-routers')},
             {path: 'service', loadChildren: () => import('./service/parent-module-routers')},
+            {path: 'asociaciones', loadChildren: () => import('./asociaciones/asociaciones-routers')},
 
 
         ],
