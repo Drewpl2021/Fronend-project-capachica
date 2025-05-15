@@ -78,6 +78,9 @@ export const END_POINTS = {
         purchases: 'purchases',
         entitiesCompanyP: 'entities-company',
     },
+    product:{
+        product: 'emprendedor-service',
+    },
     payments:{
         payments: 'payments',
         operationTypes: 'operation-types',

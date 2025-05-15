@@ -9,10 +9,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatSelectModule} from "@angular/material/select";
 import {CommonModule, JsonPipe} from "@angular/common";
-import {AsociacionesService} from "../../../../../../providers/services/setup/asociaciones.service";
-import {Stores} from "../../../../catalog/productsDynamic/models/product-dynamics";
-import {Municipaldiad} from "../../models/asociaciones";
-import {MunicipalidadService} from "../../../../../../providers/services/setup/municipalidad.service";
+import {SerialFlowsService} from "../../../../../../providers/services/catalog/serial-flows.service";
+import {ServicioService} from "../../../../../../providers/services/setup/servicio.service";
+import {Service} from "../../models/product";
+import {SerialFlows} from "../../../../sales/sales/models/sales";
 
 @Component({
     selector: 'app-category-new',
@@ -33,7 +33,7 @@ import {MunicipalidadService} from "../../../../../../providers/services/setup/m
         <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
             <div
                 class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-                <div class="text-lg font-medium">Nueva Asociacion</div>
+                <div class="text-lg font-medium">Nueva Categoría</div>
                 <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
                     <mat-icon
                         class="text-current"
@@ -46,35 +46,41 @@ import {MunicipalidadService} from "../../../../../../providers/services/setup/m
                 <div class="flex space-x-4">
                     <mat-form-field class="flex-1">
                         <mat-label>Nombre</mat-label>
-                        <input type="text" matInput formControlName="nombre" />
+                        <input type="text" matInput formControlName="name" />
                     </mat-form-field>
 
                     <mat-form-field class="flex-1">
-                        <mat-label>Lugar</mat-label>
-                        <input type="text" matInput formControlName="lugar" />
+                        <mat-label>Código</mat-label>
+                        <input type="text" matInput formControlName="code"/>
                     </mat-form-field>
                 </div>
-
-
                 <div class="flex space-x-4">
                     <mat-form-field class="flex-1">
-                        <mat-label>URL</mat-label>
-                        <input type="text" matInput formControlName="url" />
+                        <mat-label>Cantidad disponible(Opcional)</mat-label>
+                        <input type="number" matInput formControlName="cantidad"/>
                     </mat-form-field>
 
                     <mat-form-field class="flex-1">
-                        <mat-label>Descripción</mat-label>
-                        <input type="text" matInput formControlName="descripcion" />
+                        <mat-label>Costo</mat-label>
+                        <input type="number" matInput formControlName="costo"/>
                     </mat-form-field>
                 </div>
+                <div class="flex space-x-4">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Descripción</mat-label>
+                        <input type="text" matInput formControlName="description"/>
+                    </mat-form-field>
+                    <mat-form-field class="flex-1">
+                        <mat-label>Tipo de Servicio</mat-label>
+                        <mat-select formControlName="service_id">
+                            <mat-option *ngFor="let flow of serialFlows" [value]="flow.id">
+                                {{ flow.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-
-                <mat-slide-toggle
-                    [checked]="categoryForm.get('estado')?.value === 1"
-                    (change)="categoryForm.patchValue({ estado: $event.checked ? 1 : 0 })"
-                    color="primary">
-                    Estado
-                </mat-slide-toggle>
+                </div>
+                <mat-slide-toggle formControlName="status" color="primary">Estado</mat-slide-toggle>
 
                 <div formArrayName="imagenes" class="mt-4">
                     <label class="font-medium mb-2 block">Imágenes</label>
@@ -105,7 +111,6 @@ import {MunicipalidadService} from "../../../../../../providers/services/setup/m
 
 
 
-
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
                         <button class="ml-auto sm:ml-0" color="warn" mat-stroked-button (click)="cancelForm()">
@@ -121,55 +126,41 @@ import {MunicipalidadService} from "../../../../../../providers/services/setup/m
         </div>
     `,
 })
-export class AsociacionesNewComponent implements OnInit {
+export class ProductNewComponent implements OnInit {
     @Input() title: string = '';
-    stores: Municipaldiad[] = [];
+    serialFlows: Service[] = [];
 
     abcForms: any;
     categoryForm = new FormGroup({
-        nombre: new FormControl('', [Validators.required]),
-        descripcion: new FormControl('', [Validators.required]),
-        lugar: new FormControl('', [Validators.required]),
-        url: new FormControl('', [Validators.required]),
-        estado: new FormControl(1, [Validators.required]),  // <-- Cambiado a 1 (true)
-        municipalidad_id: new FormControl('', [Validators.required]),
+        name: new FormControl('', [Validators.required]),
+        code: new FormControl('', [Validators.required]),
+        description: new FormControl('', [Validators.required]),
+        costo: new FormControl('', [Validators.required]),
+        cantidad: new FormControl('', [Validators.required]),
+        service_id: new FormControl('', [Validators.required]),
+        status: new FormControl(1, [Validators.required]),
         imagenes: new FormArray([]),
+
     });
 
-
     constructor(
-        private _matDialog: MatDialogRef<AsociacionesNewComponent>,
-        private _municipalidadService: MunicipalidadService,
+        private _matDialog: MatDialogRef<ProductNewComponent>,
+        private _serialFlowsService: ServicioService,
 
-    ) { this.addImage();
+    ) {
     }
 
     ngOnInit() {
-        this.CargarDatos();
-
         this.abcForms = abcForms;
+        this.uploadData();
+        this.addImage();
     }
-
-    public saveForm(): void {
-        if (this.categoryForm.valid) {
-            this._matDialog.close(this.categoryForm.value);
-        }
-    }
-    private CargarDatos() {
-        this._municipalidadService.getAll$().subscribe(data => {
-            this.stores = data?.content || [];
-
-            // Buscar municipalidad con codigo '01'
-            const muni01 = this.stores.find(m => m.codigo === '01');
-
-            if (muni01) {
-                // Asignar el id de esa municipalidad al formulario
-                this.categoryForm.patchValue({
-                    municipalidad_id: muni01.id
-                });
-            }
+    private uploadData() {
+        this._serialFlowsService.getAll$().subscribe((data) => {
+            this.serialFlows = data?.content || [];
         });
     }
+
     get imagenesControls() {
         return this.categoryForm.get('imagenes') as FormArray;
     }
@@ -179,7 +170,6 @@ export class AsociacionesNewComponent implements OnInit {
 
         this.imagenesControls.controls.forEach(ctrl => {
             const codigo: string = ctrl.get('codigo')?.value || '';
-            // Extraer número del código con regex (asumiendo formato IMG-XXX)
             const match = codigo.match(/(\d+)$/);
             if (match) {
                 const num = parseInt(match[1], 10);
@@ -189,24 +179,28 @@ export class AsociacionesNewComponent implements OnInit {
             }
         });
 
-        // Generar nuevo código incrementando el número, con ceros a la izquierda
         const newCodeNumber = maxCodeNumber + 1;
         const newCodigo = 'IMG-' + newCodeNumber.toString().padStart(3, '0');
 
         this.imagenesControls.push(
             new FormGroup({
                 url_image: new FormControl('', Validators.required),
-                estado: new FormControl(true),
+                estado: new FormControl(1),  // si usas número para status
                 codigo: new FormControl(newCodigo),
-                description: new FormControl(''),  // si tienes description también
+                description: new FormControl(''),
             })
         );
     }
 
-
     removeImage(index: number) {
         this.imagenesControls.removeAt(index);
     }
+    public saveForm(): void {
+        if (this.categoryForm.valid) {
+            this._matDialog.close(this.categoryForm.value);
+        }
+    }
+
     public cancelForm(): void {
         this._matDialog.close('');
     }
