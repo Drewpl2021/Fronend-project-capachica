@@ -84,13 +84,13 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.eventSubscription = this._eventService.event$.subscribe((data) => {
             if (data) {
-                this.uploadData();
+               // this.uploadData();
             }
         });
         this.showmenu();
         this.tokenValue = jwtDecode(localStorage.getItem("accessToken"));
-        this.uploadData();
-        this.uploadImage();
+        //this.uploadData();
+        //this.uploadImage();
 
         this.user = {
             id: 'cfaad35d-07a3-4447-a6c3-d8c3d54fd5df',
@@ -101,27 +101,27 @@ export class ClassyLayoutComponent implements OnInit, OnDestroy {
         };
     }
 
-    private uploadData() {
-        this._companyUserAdminService.getAllsAccesTocken$().subscribe((data) => {
-            this.companies = data?.content ? data.content : [data];
+    //private uploadData() {
+    //    this._companyUserAdminService.getAllsAccesTocken$().subscribe((data) => {
+     //       this.companies = data?.content ? data.content : [data];
            // setTimeout(() => this.uploadData(), 1000);
-        });
+       // });
 
-    }
-    private uploadImage() {
+    //}
+    //private uploadImage() {
 
-        this._companyUserService.getAllToken$().subscribe((data) => {
-            this.companies = Array.isArray(data) ? data : [data];
+      //  this._companyUserService.getAllToken$().subscribe((data) => {
+        //    this.companies = Array.isArray(data) ? data : [data];
 
 
-            if (this.companies.length > 0 && this.companies[0]?.company?.logo) {
-                this.validateAndSetLogoUrl(this.companies[0].company.logo);
-            } else {
-                console.warn('No se encontró la URL del logo.');
-                this.validLogoUrl = ''; // Evita mostrar imágenes rotas
-            }
-        });
-    }
+          //  if (this.companies.length > 0 && this.companies[0]?.company?.logo) {
+            //    this.validateAndSetLogoUrl(this.companies[0].company.logo);
+            //} else {
+              //  console.warn('No se encontró la URL del logo.');
+               // this.validLogoUrl = ''; // Evita mostrar imágenes rotas
+        //    }
+      //  });
+    //}
 
     public validateAndSetLogoUrl(url: string): void {
         if (url && url.startsWith('http')) {
