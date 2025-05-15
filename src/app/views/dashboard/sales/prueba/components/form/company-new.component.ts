@@ -7,9 +7,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogRef} from '@angular/material/dialog';
-import {ParentModule} from "../../../parentModule/models/parent-module";
 import {MatSelectModule} from "@angular/material/select";
 import {CommonModule, JsonPipe} from "@angular/common";
+import {ParentModule} from "../../../../setup/parentModule/models/parent-module";
 
 @Component({
     selector: 'app-company-new',

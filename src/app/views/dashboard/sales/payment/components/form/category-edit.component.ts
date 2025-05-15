@@ -7,14 +7,15 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogRef} from '@angular/material/dialog';
-import {Company} from "../../models/company";
+import {Payment} from "../../models/category";
+
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {NgForOf} from "@angular/common";
 import {ParentModule} from "../../../../setup/parentModule/models/parent-module";
 
 @Component({
-    selector: 'app-module-new',
+    selector: 'app-category-new',
     standalone: true,
     imports: [
         FormsModule,
@@ -33,7 +34,7 @@ import {ParentModule} from "../../../../setup/parentModule/models/parent-module"
             <!-- Header -->
             <div
                 class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-                <div class="text-lg font-medium">Editar Módulo</div>
+                <div class="text-lg font-medium">Nuevo Módulo Padre</div>
                 <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
                     <mat-icon
                         class="text-current"
@@ -44,44 +45,25 @@ import {ParentModule} from "../../../../setup/parentModule/models/parent-module"
 
             <!-- Compose form -->
             <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
-                  [formGroup]="moduleForm">
+                  [formGroup]="parentModuleForm">
                 <mat-form-field>
-                    <mat-label>Modulo Padre</mat-label>
-                    <input type="text" matInput [formControlName]="'title'"/>
+                    <mat-label>Módulo Padre</mat-label>
+                    <input type="text" matInput [formControlName]="'code'"/>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Icono</mat-label>
-                    <input type="email" matInput [formControlName]="'icon'"/>
+                    <input type="Number" matInput [formControlName]="'total'"/>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Orden</mat-label>
-                    <input type="text" matInput [formControlName]="'moduleOrder'"/>
+                    <input type="Number" matInput [formControlName]="'bi'"/>
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Url</mat-label>
-                    <input type="text" matInput [formControlName]="'link'"/>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Parent Module</mat-label>
-                    <mat-select [formControlName]="'parentModuleId'" placeholder="Select Parent Module">
-                        <mat-option *ngFor="let parentModule of parentModules" [value]="parentModule.id">
-                            {{ parentModule.title }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-slide-toggle [formControlName]="'status'"
-                    [color]="'primary'"
-                ></mat-slide-toggle>
-                <mat-form-field>
-                    <mat-label>subtitle</mat-label>
-                    <input type="text" matInput [formControlName]="'subtitle'"/>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>type</mat-label>
-                    <input type="text" matInput [formControlName]="'type'"/>
+                    <input type="Number" matInput [formControlName]="'igv'"/>
                 </mat-form-field>
 
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
@@ -95,7 +77,7 @@ import {ParentModule} from "../../../../setup/parentModule/models/parent-module"
                         <button
                             class="ml-auto sm:ml-0"
                             [color]="'primary'"
-                            [disabled]="moduleForm.invalid"
+                            [disabled]="parentModuleForm.invalid"
                             mat-stroked-button
                             (click)="saveForm()">
                             Guardar
@@ -106,37 +88,33 @@ import {ParentModule} from "../../../../setup/parentModule/models/parent-module"
         </div>
     `,
 })
-export class CompanyEditComponent implements OnInit {
+export class CategoryEditComponent implements OnInit {
     @Input() title: string = '';
-    @Input() module = new Company();
-    public parentModules: ParentModule[] = [];
+    @Input() parentModule = new Payment();
     abcForms: any;
-    moduleForm = new FormGroup({
-        title: new FormControl('', [Validators.required]),
-        icon: new FormControl('', [Validators.required]),
-        moduleOrder: new FormControl(null, [Validators.required,]),
-        link: new FormControl('', [Validators.required,]),
-        status: new FormControl(true, [Validators.required]),
-        parentModuleId: new FormControl('', [Validators.required,]),
-        subtitle: new FormControl(''),
-        type: new FormControl('', [Validators.required,]),
+    parentModuleForm = new FormGroup({
+        code: new FormControl('', [Validators.required]),
+        total: new FormControl('', [Validators.required]),
+        bi: new FormControl('', [Validators.required,]),
+        igv: new FormControl('', [Validators.required,]),
 
 
     });
 
     constructor(
-        private _matDialog: MatDialogRef<CompanyEditComponent>
+        private _matDialog: MatDialogRef<CategoryEditComponent>
     ) {
     }
 
     ngOnInit() {
         this.abcForms = abcForms;
-
+        // @ts-ignore
+        this.parentModuleForm.patchValue(this.parentModule);
     }
 
     public saveForm(): void {
-        if (this.moduleForm.valid) {
-            this._matDialog.close(this.moduleForm.value);
+        if (this.parentModuleForm.valid) {
+            this._matDialog.close(this.parentModuleForm.value);
         }
     }
 

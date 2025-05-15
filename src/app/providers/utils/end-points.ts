@@ -83,6 +83,7 @@ export const END_POINTS = {
     },
     sales:{
         sales: 'sale',
+        payment: 'payment',
         prices: 'prices',
         barCode: 'barcode',
         priceDetails: 'price-details',
