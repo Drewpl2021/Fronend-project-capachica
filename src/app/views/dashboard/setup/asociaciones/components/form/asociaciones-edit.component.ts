@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
 import {abcForms} from '../../../../../../../environments/generals';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -45,26 +45,60 @@ import {MunicipalidadService} from "../../../../../../providers/services/setup/m
 
             <!-- Compose form -->
             <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="categoryForm">
-                <mat-form-field>
-                    <mat-label>Nombre</mat-label>
-                    <input type="text" matInput formControlName="nombre"/>
-                </mat-form-field>
+                <div class="flex space-x-4">
+                    <mat-form-field class="flex-1">
+                        <mat-label>Nombre</mat-label>
+                        <input type="text" matInput formControlName="nombre" />
+                    </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>Lugar</mat-label>
-                    <input type="text" matInput formControlName="lugar"/>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>URL</mat-label>
-                    <input type="text" matInput formControlName="url"/>
-                </mat-form-field>
+                    <mat-form-field class="flex-1">
+                        <mat-label>Lugar</mat-label>
+                        <input type="text" matInput formControlName="lugar" />
+                    </mat-form-field>
+                </div>
+                <div class="flex space-x-4">
+                    <mat-form-field class="flex-1">
+                        <mat-label>URL</mat-label>
+                        <input type="text" matInput formControlName="url" />
+                    </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>Descripción</mat-label>
-                    <input type="text" matInput formControlName="descripcion"/>
-                </mat-form-field>
+                    <mat-form-field class="flex-1">
+                        <mat-label>Descripción</mat-label>
+                        <input type="text" matInput formControlName="descripcion" />
+                    </mat-form-field>
+                </div>
+
 
                 <mat-slide-toggle formControlName="estado" color="primary">Estado</mat-slide-toggle>
+
+
+                <div formArrayName="imagenes" class="mt-4">
+                    <label class="font-medium mb-2 block">Imágenes</label>
+
+                    <div *ngFor="let imgCtrl of imagenesControls.controls; let i=index"
+                         [formGroupName]="i"
+                         class="flex flex-row items-center space-x-4 mb-4 border rounded p-4">
+
+                        <mat-form-field class="flex-grow min-w-[200px]">
+                            <mat-label>URL de la imagen {{ i + 1 }}</mat-label>
+                            <input matInput formControlName="url_image" />
+                        </mat-form-field>
+
+                        <mat-form-field class="w-32">
+                            <mat-label>Código</mat-label>
+                            <input matInput formControlName="codigo" />
+                        </mat-form-field>
+
+                        <button mat-icon-button color="warn" type="button" (click)="removeImage(i)" aria-label="Eliminar imagen {{ i + 1 }}">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+
+                    <button mat-stroked-button color="primary" type="button" (click)="addImage()">
+                        Añadir imagen
+                    </button>
+                </div>
+
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
                         <button class="ml-auto sm:ml-0" color="warn" mat-stroked-button (click)="cancelForm()">
@@ -93,13 +127,14 @@ export class AsociacionesEditComponent implements OnInit {
         url: new FormControl('', [Validators.required]),
         estado: new FormControl(true, [Validators.required]),  // <-- Cambiado a 1 (true)
         municipalidad_id: new FormControl('', [Validators.required]),
+        imagenes: new FormArray([]),
 
     });
 
     constructor(
         private _matDialog: MatDialogRef<AsociacionesEditComponent>,
          private _municipalidadService: MunicipalidadService,
-    ) {
+    ) {this.addImage();
     }
 
     ngOnInit() {
@@ -107,9 +142,12 @@ export class AsociacionesEditComponent implements OnInit {
 
         const patchData = {
             ...this.unitMeasurement,
-            estado: !!this.unitMeasurement.estado  // convierte 1/0 a true/false
+            estado: !!this.unitMeasurement.estado
         };
+
         this.categoryForm.patchValue(patchData);
+
+        this.cargarImagenes(this.unitMeasurement.imagenes || []);
 
     }
     private CargarDatos() {
@@ -127,7 +165,39 @@ export class AsociacionesEditComponent implements OnInit {
             }
         });
     }
+    get imagenesControls() {
+        return this.categoryForm.get('imagenes') as FormArray;
+    }
+    addImage() {
+        this.imagenesControls.push(
+            new FormGroup({
+                url_image: new FormControl('', Validators.required),
+                estado: new FormControl(true),
+                codigo: new FormControl(''),
+                description: new FormControl(''),
+            })
+        );
+    }
+    private cargarImagenes(imagenes: any[]) {
+        this.imagenesControls.clear(); // limpia el FormArray
 
+        if (imagenes && imagenes.length) {
+            imagenes.forEach(imagen => {
+                this.imagenesControls.push(new FormGroup({
+                    url_image: new FormControl(imagen.url_image, Validators.required),
+                    estado: new FormControl(imagen.estado),
+                    codigo: new FormControl(imagen.codigo),
+                    description: new FormControl(imagen.description || '')
+                }));
+            });
+        } else {
+            this.addImage(); // si no hay imágenes, agrega uno vacío
+        }
+    }
+
+    removeImage(index: number) {
+        this.imagenesControls.removeAt(index);
+    }
     public saveForm(): void {
         if (this.categoryForm.valid) {
             this._matDialog.close(this.categoryForm.value);

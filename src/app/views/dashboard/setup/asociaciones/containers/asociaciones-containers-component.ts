@@ -123,7 +123,7 @@ export class AsociacionesContainersComponent implements OnInit {
 
     public eventEdit(id: string): void {
         this._asociacionescrearService.getById$(id).subscribe((response) => {
-            this.unitMeasurement = response;
+            this.unitMeasurement = response.content;
             const categoryForm = this._matDialog.open(AsociacionesEditComponent);
             categoryForm.componentInstance.title = 'Editar Categoría' || null;
             categoryForm.componentInstance.unitMeasurement = this.unitMeasurement;

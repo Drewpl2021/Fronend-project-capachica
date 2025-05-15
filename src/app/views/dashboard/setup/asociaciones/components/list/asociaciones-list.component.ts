@@ -116,7 +116,7 @@ export class AsociacionesListComponent implements OnInit, OnDestroy, OnChanges  
                     this.currentImageIndices[i] = (this.currentImageIndices[i] + 1) % category.imagenes.length;
                 }
             });
-        }, 3000);
+        }, 9000);
     }
     ngOnChanges() {
         // Cada vez que categories cambie, reinicializa los índices
@@ -143,7 +143,7 @@ export class AsociacionesListComponent implements OnInit, OnDestroy, OnChanges  
                     this.currentImageIndices[i] = (this.currentImageIndices[i] + 1) % category.imagenes.length;
                 }
             });
-        }, 3000);
+        }, 9000);
     }
 
     ngOnDestroy() {
