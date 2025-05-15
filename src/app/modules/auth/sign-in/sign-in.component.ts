@@ -85,7 +85,6 @@ export class AuthSignInComponent implements OnInit {
     // -----------------------------------------------------------------------------------------------------
 
     signIn(): void {
-        // Return if the form is invalid
         if (this.signInForm.invalid) {
             return;
         }
@@ -93,13 +92,26 @@ export class AuthSignInComponent implements OnInit {
         this.showAlert = false;
 
         this._oauthService.authenticate(this.signInForm.value).subscribe({
-            next: () => {
-                const redirectURL =
-                     this._activatedRoute.snapshot.queryParamMap.get(
-                         'redirectURL'
-                     ) || '/homeScreen';
+            next: (response) => {
+                const roles: string[] = response.data.roles;
 
-                this._router.navigateByUrl(redirectURL);
+                if (roles.includes('usuario')) {
+                    const token = response.data.token;
+                    window.location.href = `http://localhost:4201/?token=${token}`;
+                } else if (roles.includes('admin') || roles.includes('admin_familia')) {
+                    const redirectURL =
+                        this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/homeScreen';
+                    this._router.navigateByUrl(redirectURL);
+                } else {
+                    this.alert = {
+                        type: 'error',
+                        message: 'Rol no autorizado',
+                    };
+                    this.showAlert = true;
+                    this.signInForm.enable();
+                    this.signInNgForm.resetForm();
+                    return;
+                }
             },
             error: () => {
                 this.signInForm.enable();
@@ -111,6 +123,10 @@ export class AuthSignInComponent implements OnInit {
                 };
                 this.showAlert = true;
             }
-        })
+        });
     }
+
+
+
+
 }
