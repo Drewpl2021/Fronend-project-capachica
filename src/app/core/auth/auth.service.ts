@@ -124,9 +124,9 @@ export class AuthService
      *
      * @param user
      */
-    signUp(user: { name: string; email: string; password: string; company: string }): Observable<any>
+    signUp(user: { name: string; email: string; password: string; }): Observable<any>
     {
-        return this._httpClient.post('company/registration', user);
+        return this._httpClient.post('register', user);
     }
 
 
