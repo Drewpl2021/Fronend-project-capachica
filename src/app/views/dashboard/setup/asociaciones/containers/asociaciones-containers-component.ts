@@ -147,7 +147,7 @@ export class AsociacionesContainersComponent implements OnInit {
                 // message: `¿Quieres proceder con esta acción ${}?`,
             }
         ).then(() => {
-            this._categoryService.delete$(id).subscribe((response) => {
+            this._asociacionescrearService.delete$(id).subscribe((response) => {
                 if (response) {
                     this.getCategories();
                 }
