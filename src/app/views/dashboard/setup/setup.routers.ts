@@ -20,6 +20,7 @@ export default [
             {path: 'listCompany', loadChildren: () => import('./listCompany/company-routers')},
             {path: 'municipalidad', loadChildren: () => import('./municipalidad/municipalidad-routers')},
             {path: 'sections', loadChildren: () => import('./sections/sections-routers')},
+            {path: 'service', loadChildren: () => import('./service/parent-module-routers')},
 
 
         ],
