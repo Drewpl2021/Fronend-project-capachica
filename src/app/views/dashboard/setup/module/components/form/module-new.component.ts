@@ -44,7 +44,7 @@ import {CommonModule, JsonPipe} from "@angular/common";
             <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
                   [formGroup]="moduleForm">
                 <mat-form-field>
-                    <mat-label>Módulo Padre</mat-label>
+                    <mat-label>Nombre del Módulo</mat-label>
                     <input type="text" matInput [formControlName]="'title'"/>
                 </mat-form-field>
 
@@ -68,7 +68,7 @@ import {CommonModule, JsonPipe} from "@angular/common";
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>type</mat-label>
-                    <input type="text" matInput [formControlName]="'type'"/>
+                    <input type="text" matInput [formControlName]="'type'" readonly  />
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Parent Módulo</mat-label>
@@ -78,7 +78,9 @@ import {CommonModule, JsonPipe} from "@angular/common";
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-
+                <mat-slide-toggle [formControlName]="'status'"
+                                  [color]="'primary'"
+                ></mat-slide-toggle>
                 <!-- Actions -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
@@ -113,7 +115,9 @@ export class ModuleNewComponent implements OnInit {
         link: new FormControl('', [Validators.required,]),
         parentModuleId: new FormControl('', [Validators.required,]),
         subtitle: new FormControl(''),
-        type: new FormControl('', [Validators.required,]),
+        type: new FormControl('basic', [Validators.required,]),
+        status: new FormControl(true, [Validators.required]),
+
     });
 
     constructor(

@@ -51,20 +51,6 @@ export class DashboardComponent implements OnInit{
     public configForm: UntypedFormGroup;
     public abcForms:any;
     private companyId: string = "default-company";
-    public stepMessages: string[] = [
-        'Bienvenido a la aplicación que te ayudará a gestionar tu empresa de manera eficiente.',
-        'Este sistema te permitirá llevar registros detallados y optimizar procesos de inventario y rentabilidad.',
-        'Podrás emitir comprobantes de pago de manera rápida y sencilla.',
-        'Podrás listar todos los productos disponibles en tu inventario.',
-        'Tendrás la opción de definir y actualizar los precios de tus productos.',
-        'Podrás ver los movimientos recientes de productos, ya sean ingresos o salidas.',
-        'El sistema mantiene un registro detallado de las ventas y pagos realizados.',
-        'Puedes verificar cómo se realizaron los pagos y consultar los métodos utilizados.',
-        'El sistema cuenta con un generador de códigos de barras para tus productos.',
-        '¡Listo para empezar! Primero, crea una categoría de productos y luego agrega o importa productos.'
-    ];
-
-
 
     constructor(
         private _formBuilder: UntypedFormBuilder,

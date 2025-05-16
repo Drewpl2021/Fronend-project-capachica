@@ -17,7 +17,6 @@ import {catchError, Subscription, take} from "rxjs";
         <app-user-list
             class="w-full"
             [users]="users"
-            (eventNew)="eventNew($event)"
             (eventAssign)="eventAssign($event)"
             (eventChangeState)="eventChangeState($event)"
         ></app-user-list>
@@ -56,29 +55,6 @@ export class UsersContainerComponent implements OnInit, OnDestroy {
         );
     }
 
-    public eventNew($event: boolean): void {
-        if ($event) {
-            const userForm = this._matDialog.open(UserNewComponent);
-            userForm.componentInstance.title = 'Nuevo Usuario' || null;
-            userForm.afterClosed().subscribe((result: any) => {
-                if (result) {
-                    this.saveUser(result);
-                }
-            });
-        }
-    }
-
-    saveUser(roles: Role[]) {
-        const dataBody: any = {
-            userId: this.userId,
-            roleIds: roles.filter(role => role.selected).map(role => role.id),
-        };
-        this._companyUserRoleService.add$(dataBody).subscribe((response) => {
-            if (response) {
-                this.getUsers();
-            }
-        });
-    }
 
     eventAssign(idUser: string): void {
         this.userId = idUser;
@@ -107,7 +83,6 @@ export class UsersContainerComponent implements OnInit, OnDestroy {
         userForm.componentInstance.roles = roles;
         userForm.afterClosed().subscribe((result: any) => {
             if (result) {
-                this.saveUser(result);
             }
         });
 

@@ -43,11 +43,11 @@ import {JsonPipe} from "@angular/common";
                         <li class="w-full border-b">
                             <div class="flex items-center ps-3">
                                 <input
-                                    type="checkbox"
-                                    [(ngModel)]="item.selected"
-                                    id="men{{ idx }}"
+                                    type="checkbox"id="men{{ idx }}"
                                     class="w-5 h-5"
                                 />
+                                    <!--[(ngModel)]="item.selected"-->
+
                                 <label
                                     for="men{{ idx }}"
                                     class="w-full py-3 ms-2">{{ item.name }}</label>

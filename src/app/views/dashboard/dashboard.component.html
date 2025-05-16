@@ -1,34 +1,6 @@
-<!-- 🔥 Intro Overlay (solo si es el primer ingreso) -->
-<div *ngIf="showIntro" (click)="hideArrow()" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50">
-    <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-md relative">
-        <h2 class="text-2xl font-bold text-gray-900">Paso {{ currentStep }} de {{ totalSteps }}</h2>
-        <p class="text-gray-600 mt-2">{{ stepMessages[currentStep - 1] }}</p>
-        <button (click)="nextStep(); $event.stopPropagation()" [disabled]="buttonDisabled"
-                class="mt-4 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition">
-            {{ buttonDisabled ? 'Siguiente (' + countdown + ')' : 'Siguiente' }}
-        </button>
-    </div>
-</div>
 
 <div class="flex flex-col flex-auto min-w-0">
-    <div (click)="hideArrow()" class="relative flex-auto p-7 sm:p-7">
-        <!-- 🔥 Flecha animada solo si es la primera vez -->
-        <div *ngIf="showArrow" class="fixed arrow-container-dashboar">
-            <svg width="80" height="80" viewBox="0 0 24 24" class="arrow-svg-dashboar">
-                <defs>
-                    <linearGradient id="arrowGradient">
-                        <stop offset="0%" stop-color="#00d4ff">
-                            <animate attributeName="stop-color" values="#00d4ff; #007bff; #00d4ff" dur="2s" repeatCount="indefinite"/>
-                        </stop>
-                        <stop offset="100%" stop-color="#007bff">
-                            <animate attributeName="stop-color" values="#007bff; #00d4ff; #007bff" dur="2s" repeatCount="indefinite"/>
-                        </stop>
-                    </linearGradient>
-                </defs>
-                <path d="M5 19 L19 5" stroke="url(#arrowGradient)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15 5 L19 5 L19 9" stroke="url(#arrowGradient)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </div>
+    <div class="relative flex-auto p-7 sm:p-7">
 
         <router-outlet></router-outlet>
     </div>

@@ -41,6 +41,9 @@ export class EntityDataService<T> {
     public getWithQuery$(params?: any): Observable<T> {
         return this.httpClient.get<T>(this.endPoint, {params: params});
     }
+    public getWithQueryDescription$(params?: any): Observable<T> {
+        return this.httpClient.get<T>(`${this.endPoint}/descripcion`,  {params: params});
+    }
 
     public getListType$(type: string, params?: any): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/type/${type}`, { params: params });
@@ -57,6 +60,9 @@ export class EntityDataService<T> {
 
     public getWithSearch$(params?: any): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/search`, { params: params });
+    }
+    public getWithPage$(params?: any): Observable<T> {
+        return this.httpClient.get<T>(`${this.endPoint}/page`, { params: params });
     }
     public getWithSummary$(params?: any): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/summary`, { params: params });
@@ -93,9 +99,12 @@ export class EntityDataService<T> {
         const params = { documentNumber, idEntityType };
         return this.httpClient.get<T>(`${this.endPoint}/find`, { params });
     }
-
     public getById$(id: string): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/${id}`);
+    }
+
+    public getByIdSS$(id: string): Observable<T> {
+        return this.httpClient.get<T>(`${this.endPoint}/byId/${id}`);
     }
     public getByPaymentTypeId$(id: string): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/by-payment-type/${id}`);

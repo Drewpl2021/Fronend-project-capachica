@@ -36,7 +36,6 @@
                             "lodash",
                             "pdfmake/build/pdfmake",
                             "pdfmake/build/vfs_fonts",
-
                             "sweetalert2"
                         ],
                         "assets": [
@@ -96,10 +95,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                          "buildTarget": "fuse:build:production"
+                            "buildTarget": "fuse:build:production"
                         },
                         "development": {
-                          "buildTarget": "fuse:build:development"
+                            "buildTarget": "fuse:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -107,7 +106,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                      "buildTarget": "fuse:build"
+                        "buildTarget": "fuse:build"
                     }
                 },
                 "test": {
@@ -134,6 +133,6 @@
         }
     },
     "cli": {
-      "analytics": "666b08c4-c880-45f6-978d-c5a4d6223cb1"
+        "analytics": "666b08c4-c880-45f6-978d-c5a4d6223cb1"
     }
 }

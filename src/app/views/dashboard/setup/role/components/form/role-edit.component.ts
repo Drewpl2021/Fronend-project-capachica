@@ -41,16 +41,15 @@ import {Role} from "../../models/role";
 
                 <form [formGroup]="roleForm" class="flex flex-col p-6 sm:p-8">
                     <mat-form-field appearance="outline" class="w-full">
-                        <mat-label>Rol</mat-label>
+                        <mat-label>Name</mat-label>
                         <input type="text" matInput formControlName="name"/>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="w-full">
-                        <mat-label>Descripción</mat-label>
+                        <mat-label>Guard Name</mat-label>
                         <input type="text" matInput formControlName="description"/>
                     </mat-form-field>
 
-                    <mat-slide-toggle formControlName="status" color="primary">Activo</mat-slide-toggle>
                 </form>
 
                 <div class="flex justify-end space-x-3 p-6">
@@ -70,12 +69,12 @@ import {Role} from "../../models/role";
 
                 <form [formGroup]="roleForm" class="p-4 space-y-4">
                     <div>
-                        <label class="font-semibold text-gray-600">Rol</label>
+                        <label class="font-semibold text-gray-600">Name</label>
                         <input type="text" class="w-full border rounded-lg p-2 mt-1" formControlName="name">
                     </div>
 
                     <div>
-                        <label class="font-semibold text-gray-600">Descripción</label>
+                        <label class="font-semibold text-gray-600">Guard Name</label>
                         <input type="text" class="w-full border rounded-lg p-2 mt-1" formControlName="description">
                     </div>
 

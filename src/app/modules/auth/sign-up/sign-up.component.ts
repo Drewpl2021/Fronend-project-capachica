@@ -57,19 +57,20 @@ export class AuthSignUpComponent implements OnInit {
     ngOnInit(): void {
         // Create the form
         this.signUpForm = this._formBuilder.group({
-                username: ['ca.ja', Validators.required],
-                email: ['pinguinosdelinux@gmail.com', [Validators.required, Validators.email]],
-                firstName: ['Empresa Registrada', Validators.required],
-                lastName: ['Desde del sistema', Validators.required],
-                ruc: ['20100000000', Validators.required],
-                companyName: ['Empresa Registrada desde el sustema', Validators.required],
+                username: ['ismail.garcilazo', Validators.required],
+                email: ['ismail.garcilazo@gmail.com', [Validators.required, Validators.email]],
+                name: ['Ismail Perz', Validators.required],
+                last_name: ['Garcilazo de la Vega', Validators.required],
+                //ruc: ['20100000000', Validators.required],
+                //companyName: ['Empresa Registrada desde el sustema', Validators.required],
                 password: ['12345', Validators.required],
                 c_password: ['12345', Validators.required],
-                address: ['Av. Los Incas 123', Validators.required],
-                roles: [["User"]],
+                //address: ['Av. Los Incas 123', Validators.required],
+                //roles: [["User"]],
             },
         );
     }
+
 
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
@@ -79,40 +80,28 @@ export class AuthSignUpComponent implements OnInit {
      * Sign up
      */
     signUp(): void {
-
-        // Do nothing if the form is invalid
+        // Si el formulario es inválido, no hacer nada
         if (this.signUpForm.invalid) {
             return;
         }
 
-        // Disable the form
-        this.signUpForm.disable();
+        // Habilitar el formulario por seguridad
+        this.signUpForm.enable();
 
-        // Hide the alert
-        this.showAlert = false;
+        // Llamar al servicio para registrar
+        this._authService.signUp(this.signUpForm.value).subscribe({
+            next: (response) => {
+                // Registro exitoso -> ir al login directamente o a donde prefieras
+                this._router.navigateByUrl('/sign-in'); // <-- cambia '/sign-in' si quieres otro destino
+            },
+            error: (error) => {
+                // En caso de error vuelve a habilitar el formulario
+                this.signUpForm.enable();
 
-        // Sign up
-        this._authService.signUp(this.signUpForm.value)
-            .subscribe(
-                (response) => {
-                    this._router.navigateByUrl('/confirmation-required');
-                },
-                (response) => {
-                    // Re-enable the form
-                    this.signUpForm.enable();
-
-                    // Reset the form
-                    this.signUpNgForm.resetForm();
-
-                    // Set the alert
-                    this.alert = {
-                        type: 'error',
-                        message: 'Algo salio mal, intentalo de nuevo.',
-                    };
-
-                    // Show the alert
-                    this.showAlert = true;
-                },
-            );
+                // Opcional: mostrar alerta o error
+                console.error('Error en registro:', error);
+            }
+        });
     }
+
 }

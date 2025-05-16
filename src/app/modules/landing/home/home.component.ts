@@ -6,8 +6,9 @@ import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'landing-home',
-    templateUrl: './home.component.html',
-    encapsulation: ViewEncapsulation.None,
+    templateUrl: './home.component.html', // Esto asegura que los estilos se apliquen globalmente
+    styleUrls: [
+    ],
     standalone: true,
     imports: [
         MatButtonModule,
