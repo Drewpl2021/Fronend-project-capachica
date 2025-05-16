@@ -116,6 +116,13 @@ export class EntityDataService<T> {
     public add$(entity: any): Observable<T> {
         return this.httpClient.post<T>(this.endPoint, entity);
     }
+    public addreser$(entity: any): Observable<T> {
+        const token = localStorage.getItem('authToken');
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+        return this.httpClient.post<T>(this.endPoint, entity, { headers });
+    }
+
 
 
     public addBulk$(entity: any): Observable<any> {

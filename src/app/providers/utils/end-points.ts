@@ -81,6 +81,7 @@ export const END_POINTS = {
     product:{
         product: 'emprendedor-service',
         emprendedor:'emprendedor',
+        reservas: 'reservas',
     },
     payments:{
         payments: 'payments',
