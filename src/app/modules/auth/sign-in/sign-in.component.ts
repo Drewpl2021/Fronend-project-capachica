@@ -178,7 +178,7 @@ export class AuthSignInComponent implements OnInit {
                         error: (err) => {
                             console.error('Error guardando reserva:', err);
                             // Podés mostrar alerta o permitir continuar igual
-                            window.location.href = `http://localhost:4201/?token=${token}`;
+                            // window.location.href = `http://localhost:4201/?token=${token}`;
                         }
                     });
 
