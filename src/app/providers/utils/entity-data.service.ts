@@ -102,6 +102,9 @@ export class EntityDataService<T> {
     public getById$(id: string): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/${id}`);
     }
+    public getByIdService$(id: string): Observable<T> {
+        return this.httpClient.get<T>(`${this.endPoint}/user/${id}`);
+    }
 
     public getByIdSS$(id: string): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/byId/${id}`);
