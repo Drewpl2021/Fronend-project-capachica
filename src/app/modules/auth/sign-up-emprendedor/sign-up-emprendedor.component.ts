@@ -20,8 +20,8 @@ import {FuseAlertComponent, FuseAlertType} from '@fuse/components/alert';
 import {AuthService} from 'app/core/auth/auth.service';
 
 @Component({
-    selector: 'auth-sign-up',
-    templateUrl: './sign-up.component.html',
+    selector: 'auth-sign-up-emprendedor',
+    templateUrl: './sign-up-emprendedor.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: fuseAnimations,
     standalone: true,
@@ -57,16 +57,16 @@ export class AuthSignUpComponent implements OnInit {
     ngOnInit(): void {
         // Create the form
         this.signUpForm = this._formBuilder.group({
-                username: ['ismail.garcilazo', Validators.required],
-                email: ['ismail.garcilazo@gmail.com', [Validators.required, Validators.email]],
-                name: ['Ismail Perz', Validators.required],
+                username: ['cristian.cabana', Validators.required],
+                email: ['cristian.cabana@gmail.com', [Validators.required, Validators.email]],
+                name: ['Cristian', Validators.required],
 
-                last_name: ['Garcilazo de la Vega', Validators.required],
+                last_name: ['Cabana Sulca', Validators.required],
                 //ruc: ['20100000000', Validators.required],
                 //companyName: ['Empresa Registrada desde el sustema', Validators.required],
                 password: ['12345', Validators.required],
                 c_password: ['12345', Validators.required],
-                rol: [1, Validators.required],
+                rol: [2, Validators.required],
 
             //address: ['Av. Los Incas 123', Validators.required],
                 //roles: [["User"]],

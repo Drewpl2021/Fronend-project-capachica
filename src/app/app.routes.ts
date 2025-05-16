@@ -81,6 +81,11 @@ export const appRoutes: Route[] = [
                 loadChildren: () =>
                     import('app/modules/auth/sign-up/sign-up.routes'),
             },
+            {
+                path: 'sign-up-emprendedor',
+                loadChildren: () =>
+                    import('app/modules/auth/sign-up-emprendedor/sign-up-emprendedor.routes'),
+            },
         ],
     },
     // {

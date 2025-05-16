@@ -1,0 +1,220 @@
+<div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0">
+    <div class="md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-4 sm:p-12 md:p-16 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none sm:bg-card">
+        <div class="w-full max-w-120 sm:w-120 mx-auto sm:mx-0">
+            <!-- Logo -->
+            <div class="w-36">
+                <img src="assets/images/logoMuni.png" />
+            </div>
+
+            <!-- Title -->
+            <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">
+                Registrate
+            </div>
+            <div class="flex items-baseline mt-0.5 font-medium">
+                <div>¿Ya tienes una cuenta de emprendedor?</div>
+                <a class="ml-1 text-primary-500 hover:underline"
+                   [routerLink]="['/sign-in']"
+                >Inicia Sesion
+                </a>
+            </div>
+
+            <!-- Alert -->
+            <fuse-alert
+                class="mt-8"
+                *ngIf="showAlert"
+                [appearance]="'outline'"
+                [showIcon]="false"
+                [type]="alert.type"
+                [@shake]="alert.type === 'error'">
+                {{ alert.message }}
+            </fuse-alert>
+
+            <!-- Sign Up form -->
+            <form class="mt-8" [formGroup]="signUpForm" #signUpNgForm="ngForm">
+
+
+                <div style="display: flex">
+                    <mat-form-field class="w-full">
+                        <mat-label>Nombres</mat-label>
+                        <input id="firstName" matInput [formControlName]="'name'" />
+                        <mat-error *ngIf="signUpForm.get('name').hasError('name')">
+                            Se requiere un nombres.
+                        </mat-error>
+                        <mat-error *ngIf="signUpForm.get('name').hasError('name')">
+                            Ingrese nombres.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-full ml-5" >
+                        <mat-label>Apellidos</mat-label>
+                        <input id="lastName" matInput [formControlName]="'last_name'" />
+                        <mat-error *ngIf="signUpForm.get('last_name').hasError('last_name')">
+                            Se requiere un Apellidos.
+                        </mat-error>
+                        <mat-error *ngIf="signUpForm.get('last_name').hasError('last_name')">
+                            Ingrese Apellidos.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!--<div style="display: flex">
+                    <mat-form-field class="w-full">
+                        <mat-label>RUC</mat-label>
+                        <input id="ruc" matInput [formControlName]="'ruc'" />
+                        <mat-error *ngIf="signUpForm.get('ruc').hasError('ruc')">
+                            Se requiere un RUC.
+                        </mat-error>
+                        <mat-error *ngIf="signUpForm.get('ruc').hasError('ruc')">
+                            Ingrese RUC.
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-full  ml-5">
+                        <mat-label>Dirección</mat-label>
+                        <input id="address" matInput [formControlName]="'address'" />
+                        <mat-error *ngIf="signUpForm.get('address').hasError('required')">
+                            Se requiere una dirección.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-form-field class="w-full">
+                    <mat-label>Razon Social</mat-label>
+                    <input id="razonSocial" matInput [formControlName]="'companyName'" />
+                    <mat-error *ngIf="signUpForm.get('companyName').hasError('companyName')">
+                        Se requiere un Razon Social.
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('companyName').hasError('companyName')">
+                        Ingrese Razon Social.
+                    </mat-error>
+                </mat-form-field>-->
+                <!-- Email field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Direccion de correo</mat-label>
+                    <input id="email" matInput [formControlName]="'email'" />
+                    <mat-error *ngIf="signUpForm.get('email').hasError('required')">
+                        Se requiere un correo.
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('email').hasError('email')">
+                        Ingresa una direccion de correo valida.
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field class="w-full">
+                    <mat-label>Usuario</mat-label>
+                    <input id="username" matInput [formControlName]="'username'" />
+                    <mat-error *ngIf="signUpForm.get('username').hasError('username')">
+                        Se requiere un Usuario.
+                    </mat-error>
+                    <mat-error *ngIf="signUpForm.get('username').hasError('username')">
+                        Ingrese Usuario.
+                    </mat-error>
+                </mat-form-field>
+                <div style="display: flex">
+                    <!-- Password field -->
+                    <!-- Contraseña field -->
+                    <mat-form-field class="w-full">
+                        <mat-label>Contraseña</mat-label>
+                        <input
+                            id="password"
+                            matInput
+                            type="password"
+                            [formControlName]="'password'"
+                            #passwordField1/>
+                        <button
+                            mat-icon-button
+                            type="button"
+                            (click)="
+                                passwordField1.type === 'password'
+                                    ? (passwordField1.type = 'text')
+                                    : (passwordField1.type = 'password')
+                            "
+                            matSuffix
+                        >
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField1.type === 'password'"
+                                [svgIcon]="'heroicons_solid:eye'"
+                            ></mat-icon>
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField1.type === 'text'"
+                                [svgIcon]="'heroicons_solid:eye-slash'"
+                            ></mat-icon>
+                        </button>
+                        <mat-error> Se requiere contraseña </mat-error>
+                    </mat-form-field>
+
+                    <!-- Confirmar contraseña field -->
+                    <mat-form-field class="w-full ml-5">
+                        <mat-label>Confirmar contraseña</mat-label>
+                        <input
+                            id="c_password"
+                            matInput
+                            type="password"
+                            [formControlName]="'c_password'"
+                            #passwordField2
+                        />
+                        <button
+                            mat-icon-button
+                            type="button"
+                            (click)="
+                                passwordField2.type === 'password'
+                                    ? (passwordField2.type = 'text')
+                                    : (passwordField2.type = 'password')
+                            "
+                            matSuffix
+                        >
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField2.type === 'password'"
+                                [svgIcon]="'heroicons_solid:eye'"
+                            ></mat-icon>
+                            <mat-icon
+                                class="icon-size-5"
+                                *ngIf="passwordField2.type === 'text'"
+                                [svgIcon]="'heroicons_solid:eye-slash'"
+                            ></mat-icon>
+                        </button>
+                        <mat-error> Se requiere contraseña </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- Submit button -->
+                <button
+                    class="fuse-mat-button-large w-full mt-6"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="signUpForm.disabled"
+                    (click)="signUp()"
+                >
+                    <span *ngIf="!signUpForm.disabled"> Crear cuenta </span>
+                    <mat-progress-spinner
+                        *ngIf="signUpForm.disabled"
+                        [diameter]="24"
+                        [mode]="'indeterminate'"
+                    ></mat-progress-spinner>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div
+        class="relative hidden md:flex flex-auto items-center justify-center w-1/2 h-full p-16 lg:px-28 overflow-hidden bg-gray-800 dark:border-l"
+        style="background-image: url('../../../../assets/images/bg_1.jpg'); background-size: cover; background-position: center;"
+    >
+
+
+        <!-- @formatter:on -->
+        <!-- Content -->
+        <div class="z-10 relative w-full max-w-2xl">
+            <div class="text-7xl font-bold leading-none text-gray-100">
+                <div>Bienvenidos a</div>
+                <div>Capachica</div>
+            </div>
+            <div class="mt-6 text-lg tracking-tight leading-6 text-gray-100">
+                Descubre un lugar mágico donde la aventura y la tranquilidad se encuentran. <br>
+                Explora paisajes impresionantes, crea recuerdos inolvidables y disfruta momentos únicos junto a quienes más amas. <br>
+                ¡Ven y vive la experiencia que transformará tus días!
+            </div>
+
+
+        </div>
+    </div>
+</div>
