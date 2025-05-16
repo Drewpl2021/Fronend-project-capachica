@@ -11,8 +11,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {CommonModule, JsonPipe} from "@angular/common";
 import {SerialFlowsService} from "../../../../../../providers/services/catalog/serial-flows.service";
 import {ServicioService} from "../../../../../../providers/services/setup/servicio.service";
-import {Service} from "../../models/product";
+import {Emprendedor, Service} from "../../models/product";
 import {SerialFlows} from "../../../../sales/sales/models/sales";
+import {jwtDecode} from "jwt-decode";
+import {EmprendedorService} from "../../../../../../providers/services/product/Emprendedor.service";
 
 @Component({
     selector: 'app-category-new',
@@ -33,7 +35,7 @@ import {SerialFlows} from "../../../../sales/sales/models/sales";
         <div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
             <div
                 class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-                <div class="text-lg font-medium">Nueva Categoría</div>
+                <div class="text-lg font-medium">Nuevo Producto</div>
                 <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
                     <mat-icon
                         class="text-current"
@@ -61,7 +63,7 @@ import {SerialFlows} from "../../../../sales/sales/models/sales";
                     </mat-form-field>
 
                     <mat-form-field class="flex-1">
-                        <mat-label>Costo</mat-label>
+                        <mat-label>Precio</mat-label>
                         <input type="number" matInput formControlName="costo"/>
                     </mat-form-field>
                 </div>
@@ -73,8 +75,8 @@ import {SerialFlows} from "../../../../sales/sales/models/sales";
                     <mat-form-field class="flex-1">
                         <mat-label>Tipo de Servicio</mat-label>
                         <mat-select formControlName="service_id">
-                            <mat-option *ngFor="let flow of serialFlows" [value]="flow.id">
-                                {{ flow.name }}
+                            <mat-option *ngFor="let service of service" [value]="service.id">
+                                {{ service.name }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -96,7 +98,7 @@ import {SerialFlows} from "../../../../sales/sales/models/sales";
 
                         <mat-form-field class="w-32">
                             <mat-label>Código</mat-label>
-                            <input matInput formControlName="codigo" />
+                            <input matInput formControlName="code" />
                         </mat-form-field>
 
                         <button mat-icon-button color="warn" type="button" (click)="removeImage(i)" aria-label="Eliminar imagen {{ i + 1 }}">
@@ -108,9 +110,6 @@ import {SerialFlows} from "../../../../sales/sales/models/sales";
                         Añadir imagen
                     </button>
                 </div>
-
-
-
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
                         <button class="ml-auto sm:ml-0" color="warn" mat-stroked-button (click)="cancelForm()">
@@ -128,16 +127,20 @@ import {SerialFlows} from "../../../../sales/sales/models/sales";
 })
 export class ProductNewComponent implements OnInit {
     @Input() title: string = '';
-    serialFlows: Service[] = [];
+    service: Service[] = [];
+    emprendedors: Emprendedor[] = [];
+
+    tokenValue: any;
 
     abcForms: any;
     categoryForm = new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        code: new FormControl('', [Validators.required]),
-        description: new FormControl('', [Validators.required]),
-        costo: new FormControl('', [Validators.required]),
-        cantidad: new FormControl('', [Validators.required]),
-        service_id: new FormControl('', [Validators.required]),
+        name: new FormControl('Kankacho', [Validators.required]),
+        code: new FormControl('01', [Validators.required]),
+        description: new FormControl('Kanckacho rico y mediano', [Validators.required]),
+        costo: new FormControl('30', [Validators.required]),
+        cantidad: new FormControl('', ),
+        service_id: new FormControl('c4601625-5087-4f75-9988-c0d065f20c3e', [Validators.required]),
+        emprendedor_id: new FormControl('', [Validators.required]),
         status: new FormControl(1, [Validators.required]),
         imagenes: new FormArray([]),
 
@@ -146,18 +149,34 @@ export class ProductNewComponent implements OnInit {
     constructor(
         private _matDialog: MatDialogRef<ProductNewComponent>,
         private _serialFlowsService: ServicioService,
+        private _emprendedorService: EmprendedorService,
 
     ) {
     }
 
     ngOnInit() {
+        this.tokenValue = jwtDecode(localStorage.getItem("accessToken"));
+
         this.abcForms = abcForms;
         this.uploadData();
         this.addImage();
     }
     private uploadData() {
+        const userId = this.tokenValue.id;
+
         this._serialFlowsService.getAll$().subscribe((data) => {
-            this.serialFlows = data?.content || [];
+            this.service = data?.content || [];
+        });
+        this._emprendedorService.getByIdService$(userId).subscribe(data => {
+            this.emprendedors = data || [];
+
+            // Supongamos que `data` es el objeto emprendedor, y tiene el campo `id`
+            const emprendedorId = data?.id || '';
+
+            // Asignamos ese id al formControl 'emprendedor_id'
+            this.categoryForm.get('emprendedor_id')?.setValue(emprendedorId);
+
+            // Ahora puedes continuar con otras cosas
         });
     }
 
@@ -169,8 +188,8 @@ export class ProductNewComponent implements OnInit {
         let maxCodeNumber = 0;
 
         this.imagenesControls.controls.forEach(ctrl => {
-            const codigo: string = ctrl.get('codigo')?.value || '';
-            const match = codigo.match(/(\d+)$/);
+            const code: string = ctrl.get('code')?.value || '';
+            const match = code.match(/(\d+)$/);
             if (match) {
                 const num = parseInt(match[1], 10);
                 if (num > maxCodeNumber) {
@@ -184,9 +203,9 @@ export class ProductNewComponent implements OnInit {
 
         this.imagenesControls.push(
             new FormGroup({
-                url_image: new FormControl('', Validators.required),
+                url_image: new FormControl('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/0f/10/d0/kankacho-ayavireno-la.jpg?w=900&h=500&s=1', Validators.required),
                 estado: new FormControl(1),  // si usas número para status
-                codigo: new FormControl(newCodigo),
+                code: new FormControl(newCodigo),
                 description: new FormControl(''),
             })
         );

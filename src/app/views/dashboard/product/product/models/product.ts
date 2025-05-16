@@ -1,6 +1,6 @@
 export class Product {
     id?: string | null;
-    status?: number | null;
+    status?: boolean | null;
     service_id?: string | null;
     emprendedor_id?: string | null;
     cantidad?: number | null;
@@ -62,6 +62,13 @@ export class Service {
     code?: string | null;
     category?: string | null;
     status?: boolean | null;
+}
+
+export class Emprendedor {
+    id?: string | null;
+    razonSocial?: string | null;
+    asociacionId?: string | null;
+    nombre_asociacion?: string | null;
 }
 
 export class PaginatedResponse {
