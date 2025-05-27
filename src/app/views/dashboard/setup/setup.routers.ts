@@ -9,8 +9,7 @@ export default [
         children: [
 
             {path: 'role', loadChildren: () => import('./role/role-routers')},
-            {path: 'users', loadChildren: () => import('./user/users-routers')},
-            {path: 'user', loadChildren: () => import('./user/users-routers')},
+
             {path: 'user-company', loadChildren: () => import('./userCompany/users-company-routers')},
             {path: 'parent-module', loadChildren: () => import('./parentModule/parent-module-routers')},
             {path: 'module', loadChildren: () => import('./module/module-routers')},

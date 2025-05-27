@@ -11,7 +11,7 @@ import {Module, SectionDetail} from "../../models/module";
 import {ParentModule} from "../../../parentModule/models/parent-module";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
-import {NgForOf} from "@angular/common";
+import {JsonPipe, NgForOf, NgIf} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SectionsDetailsService} from "../../../../../../providers/services/setup/sections-details.service";
 import {MatTooltipModule} from "@angular/material/tooltip";
@@ -34,6 +34,8 @@ import {SeccionDetalleEditComponent} from "../form/seccion-detalle-edit.componen
         MatSelectModule,
         NgForOf,
         MatTooltipModule,
+        NgIf,
+        JsonPipe
     ],
     template: `
         <div class="bg-white flex flex-col px-4 py-4  mx-auto rounded shadow-md "  style="width: 10000px">
@@ -87,8 +89,7 @@ import {SeccionDetalleEditComponent} from "../form/seccion-detalle-edit.componen
                             </div>
                         </div>
                     </div>
-
-                    <!-- Si no hay datos -->
+ng                     <!-- Si no hay datos -->
                     <div *ngIf="sectionDetails.length === 0" class="text-center" style="color: #6B7280;">
                         No hay secciones registradas.
                     </div>
