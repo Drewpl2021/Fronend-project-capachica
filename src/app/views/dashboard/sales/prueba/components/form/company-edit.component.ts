@@ -8,10 +8,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Company} from "../../models/company";
-import {ParentModule} from "../../../parentModule/models/parent-module";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {NgForOf} from "@angular/common";
+import {ParentModule} from "../../../../setup/parentModule/models/parent-module";
 
 @Component({
     selector: 'app-module-new',

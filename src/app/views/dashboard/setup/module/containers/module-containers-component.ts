@@ -95,7 +95,7 @@ export class ModuleContainersComponent implements OnInit {
     }
 
     private getModule(data?: any): void {
-        this._moduleService.getWithPage$(data).subscribe(
+        this._moduleService.getWithQuery$(data).subscribe(
             (response) => {
                 this.paginatedResponse = response;
                 this.modules = this.paginatedResponse.content;

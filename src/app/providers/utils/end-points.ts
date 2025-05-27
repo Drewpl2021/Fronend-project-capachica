@@ -18,6 +18,9 @@ export const END_POINTS = {
         parentModule:'parent-module',
         companyUserRole:'company-user-role',
         module:'module',
+        asociaciones:'asociaciones',
+        asociacion:'asociacion',
+        service:'service',
         municipalidad:'municipalidad',
         company:'company',
         listCompany: 'listCompany',
@@ -75,6 +78,11 @@ export const END_POINTS = {
         purchases: 'purchases',
         entitiesCompanyP: 'entities-company',
     },
+    product:{
+        product: 'emprendedor-service',
+        emprendedor:'emprendedor',
+        reservas: 'reservas',
+    },
     payments:{
         payments: 'payments',
         operationTypes: 'operation-types',
@@ -83,6 +91,7 @@ export const END_POINTS = {
     },
     sales:{
         sales: 'sale',
+        payment: 'payment',
         prices: 'prices',
         barCode: 'barcode',
         priceDetails: 'price-details',

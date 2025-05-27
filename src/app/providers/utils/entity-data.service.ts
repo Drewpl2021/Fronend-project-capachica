@@ -102,6 +102,9 @@ export class EntityDataService<T> {
     public getById$(id: string): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/${id}`);
     }
+    public getByIdService$(id: string): Observable<T> {
+        return this.httpClient.get<T>(`${this.endPoint}/user/${id}`);
+    }
 
     public getByIdSS$(id: string): Observable<T> {
         return this.httpClient.get<T>(`${this.endPoint}/byId/${id}`);
@@ -113,6 +116,13 @@ export class EntityDataService<T> {
     public add$(entity: any): Observable<T> {
         return this.httpClient.post<T>(this.endPoint, entity);
     }
+    public addreser$(entity: any): Observable<T> {
+        const token = localStorage.getItem('authToken');
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
+        return this.httpClient.post<T>(this.endPoint, entity, { headers });
+    }
+
 
 
     public addBulk$(entity: any): Observable<any> {

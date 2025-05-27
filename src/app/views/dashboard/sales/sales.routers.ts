@@ -12,6 +12,7 @@ export default [
             {path: 'priceDetails', loadChildren: () => import('./priceDetails/price-details-routers')},
             {path: 'entitiesCompanyC', loadChildren: () => import('./entitiesCompanyC/entitiesCompanyC-routers')},
             {path: 'barCode', loadChildren: () => import('./barCode/barCode-routers')},
+            {path: 'payment', loadChildren: () => import('./payment/category-routers')},
         ],
     },
 ] as Routes;

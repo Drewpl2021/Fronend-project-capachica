@@ -11,6 +11,7 @@ export default [
             {path: 'sales', loadChildren: () => import('app/views/dashboard/sales/sales.routers')},
             {path: 'setup', loadChildren: () => import('app/views/dashboard/setup/setup.routers')},
             {path: 'client', loadChildren: () => import('app/views/dashboard/client/client.routers')},
+            {path: 'product', loadChildren: () => import('app/views/dashboard/product/product.routers')},
             {path: 'reports', loadChildren: () => import('app/views/dashboard/reports/reports.routers')},
             {path: 'catalog', loadChildren: () => import('app/views/dashboard/catalog/catalog.routers')},
             {path: 'payments', loadChildren: () => import('app/views/dashboard/payments/payments.routers')},

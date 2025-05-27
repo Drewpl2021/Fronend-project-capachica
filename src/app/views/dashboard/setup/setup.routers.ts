@@ -8,6 +8,7 @@ export default [
         component: SetupComponent,
         children: [
 
+
             {path: 'role', loadChildren: () => import('./role/role-routers')},
 
             {path: 'user-company', loadChildren: () => import('./userCompany/users-company-routers')},
@@ -18,6 +19,8 @@ export default [
             {path: 'listCompany', loadChildren: () => import('./listCompany/company-routers')},
             {path: 'municipalidad', loadChildren: () => import('./municipalidad/municipalidad-routers')},
             {path: 'sections', loadChildren: () => import('./sections/sections-routers')},
+            {path: 'service', loadChildren: () => import('./service/parent-module-routers')},
+            {path: 'asociaciones', loadChildren: () => import('./asociaciones/asociaciones-routers')},
 
 
         ],
