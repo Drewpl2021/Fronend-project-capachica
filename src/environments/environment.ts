@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: "http://54.84.249.35/",
+  url: "http://18.204.208.147/",
   // url: "http://pruebasback.imperiumse.com/api/",
 
 };
