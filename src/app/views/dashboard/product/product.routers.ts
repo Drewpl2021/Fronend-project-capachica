@@ -8,6 +8,7 @@ export default [
         component: ProductComponent,
         children: [
             {path: 'product', loadChildren: () => import('./product/product-routers')},
+            {path: 'reservas', loadChildren: () => import('./Reservas/category-routers')},
 
         ],
     },
