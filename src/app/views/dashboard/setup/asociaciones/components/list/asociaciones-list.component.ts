@@ -9,9 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {EntityTypes} from "../../../../buys/purchases/models/purchases";
 @Component({
-    selector: 'app-category-list',
+    selector: 'app-asociaciones-list',
     standalone: true,
     imports: [
         FormsModule,

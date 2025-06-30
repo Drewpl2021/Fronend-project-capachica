@@ -4,7 +4,7 @@ import {RouterOutlet} from "@angular/router";
 import {CommonModule} from "@angular/common";
 @Component({
     standalone: true,
-    selector: 'app-category',
+    selector: 'app-asociaciones',
     imports: [CommonModule, RouterOutlet],
     template: `
       <div class="card shadow-gm-card m-1 w-full flex-none">
@@ -23,7 +23,7 @@ export class AsociacionesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.title = 'Categorías';
+    this.title = 'Asociaciones';
     this.abcForms = abcForms;
   }
 

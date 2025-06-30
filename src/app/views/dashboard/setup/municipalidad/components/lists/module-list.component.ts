@@ -9,10 +9,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {CommonModule, DatePipe} from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MunicipalidadService} from "../../../../../../providers/services/setup/municipalidad.service";
 
 @Component({
-    selector: 'app-module-list',
+    selector: 'app-municipalidad-list',
     standalone: true,
     imports: [
         FormsModule,

@@ -9,10 +9,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatSelectModule} from "@angular/material/select";
 import {CommonModule, JsonPipe} from "@angular/common";
-import {SerialFlowsService} from "../../../../../../providers/services/catalog/serial-flows.service";
 import {ServicioService} from "../../../../../../providers/services/setup/servicio.service";
 import {Emprendedor, Service} from "../../models/product";
-import {SerialFlows} from "../../../../sales/sales/models/sales";
 import {jwtDecode} from "jwt-decode";
 import {EmprendedorService} from "../../../../../../providers/services/product/Emprendedor.service";
 

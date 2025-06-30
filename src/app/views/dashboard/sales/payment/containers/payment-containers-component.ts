@@ -1,37 +1,36 @@
 import {Component, OnInit} from '@angular/core';
-import {Asociaciones, AsociacionesFilter, PaginatedResponse} from '../models/asociaciones';
-import {AsociacionesListComponent} from '../components/list/asociaciones-list.component';
+import {PaymentListComponent} from '../components/list/payment-list.component';
 import {MatDialog} from '@angular/material/dialog';
-import {AsociacionesNewComponent} from '../components/form/asociaciones-new.component';
+import {PaymentNewComponent} from '../components/form/payment-new.component';
 
 import {PaginationControlsComponent} from "../../../../../shared/pagination-controls/pagination-controls.component";
 import {PaginationEvent} from "../../../../../shared/pagination-controls/models/PaginationEvent";
-import {AsociacionesFilterComponent} from "../components/filter/asociaciones-filter.component";
-import {AsociacionesEditComponent} from "../components/form/asociaciones-edit.component";
+import {PaymentFilterComponent} from "../components/filter/payment-filter.component";
+import {PaymentEditComponent} from "../components/form/payment-edit.component";
 import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm-dialog.service";
-import {AsociacionesService} from "../../../../../providers/services/setup/asociaciones.service";
-import {AsociacionescrearService} from "../../../../../providers/services/setup/asociacionescrear.service";
+import { PaginatedResponse, Payment, PaymentFilter } from '../models/payment';
+import { PaymentService } from 'app/providers/services/sales/payment.service';
 
 
 @Component({
-    selector: 'app-asociaciones-container',
+    selector: 'app-payment-container',
     standalone: true,
-    imports: [AsociacionesListComponent,
-        PaginationControlsComponent, AsociacionesFilterComponent],
+    imports: [PaymentListComponent,
+        PaginationControlsComponent, PaymentFilterComponent],
     template: `
         <div class="w-full mx-auto p-6 bg-white rounded overflow-hidden shadow-lg">
 
-            <app-asociaciones-filter
+            <app-payment-filter
                 (eventFilter)="eventFilter($event)"
                 (eventNew)="eventNew($event)">
-            </app-asociaciones-filter>
+            </app-payment-filter>
 
-            <app-asociaciones-list
+            <app-payment-list
                 class="w-full"
-                [categories]="asociaciones"
+                [categories]="categories"
                 (eventEdit)="eventEdit($event)"
                 (eventDelete)="eventDelete($event)"
-            ></app-asociaciones-list>
+            ></app-payment-list>
             <pagination-controls
                 [totalItems]="paginatedResponse.totalElements"
                 [itemsPerPage]="size"
@@ -41,19 +40,18 @@ import {AsociacionescrearService} from "../../../../../providers/services/setup/
         </div>
     `,
 })
-export class AsociacionesContainersComponent implements OnInit {
+export class PaymentContainersComponent implements OnInit {
     public error: string = '';
-    public asociaciones: Asociaciones[] = [];
+    public categories: Payment[] = [];
     public paginationEvent = new PaginationEvent();
-    public categoryFilter: AsociacionesFilter;
+    public categoryFilter: PaymentFilter;
+    public unitMeasurement = new Payment();
 
-    public unitMeasurement = new Asociaciones();
     paginatedResponse: PaginatedResponse = {content: [], totalPages: 0, currentPage: 0, totalElements: 0};
     size: number = 20;
 
     constructor(
-        private _categoryService: AsociacionesService,
-        private _asociacionescrearService: AsociacionescrearService,
+        private _categoryService: PaymentService,
         private _confirmDialogService: ConfirmDialogService,
         private _matDialog: MatDialog
     ) {
@@ -68,7 +66,7 @@ export class AsociacionesContainersComponent implements OnInit {
         this.mergeFilterAndPagination();
     }
 
-    public eventFilter(categoryFilter: AsociacionesFilter): void {
+    public eventFilter(categoryFilter: PaymentFilter): void {
         this.categoryFilter = categoryFilter;
         this.mergeFilterAndPagination();
     }
@@ -86,7 +84,7 @@ export class AsociacionesContainersComponent implements OnInit {
         this._categoryService.getWithQuery$(data).subscribe(
             (response) => {
                 this.paginatedResponse = response;
-                this.asociaciones = this.paginatedResponse.content;
+                this.categories = this.paginatedResponse.content;
             },
             (error) => {
                 this.error = error;
@@ -96,7 +94,7 @@ export class AsociacionesContainersComponent implements OnInit {
 
     public eventNew($event: boolean): void {
         if ($event) {
-            const categoryForm = this._matDialog.open(AsociacionesNewComponent);
+            const categoryForm = this._matDialog.open(PaymentNewComponent);
             categoryForm.componentInstance.title = 'Nueva Categoria' || null;
 
             categoryForm.afterClosed().subscribe((result: any) => {
@@ -112,31 +110,38 @@ export class AsociacionesContainersComponent implements OnInit {
     }
 
     private save(data: Object) {
-        this._asociacionescrearService.add$(data).subscribe((response) => {
+        this._categoryService.add$(data).subscribe((response) => {
             if (response) {
                 this.getCategories();
             }
         }, (error) => {
         });
     }
-
+    private currentEditingUnitMeasurement!: Payment;
     public eventEdit(id: string): void {
-        this._asociacionescrearService.getById$(id).subscribe((response) => {
-            this.unitMeasurement = response.content;
-            const categoryForm = this._matDialog.open(AsociacionesEditComponent);
-            categoryForm.componentInstance.title = 'Editar Categoría' || null;
-            categoryForm.componentInstance.unitMeasurement = this.unitMeasurement;
+        this._categoryService.getById$(id).subscribe((response) => {
+            console.log('Respuesta backend:', response);
+            this.currentEditingUnitMeasurement = response;
+
+            const categoryForm = this._matDialog.open(PaymentEditComponent);
+            const dialogComp = categoryForm.componentInstance as PaymentEditComponent;
+            (categoryForm.componentInstance as PaymentEditComponent).title = 'Editar Pago';
+            (categoryForm.componentInstance as PaymentEditComponent).parentModule = response;
+
 
             categoryForm.afterClosed().subscribe((result: any) => {
                 if (result) {
-                    // Muestra la confirmación antes de editar
                     this._confirmDialogService.confirmSave({})
                         .then(() => {
-                            this.edit(result); // Si el usuario confirma, procede con la edición
-                        })
+                            this.edit(result);
+                        });
                 }
             });
         });
+
+
+
+
     }
 
     public eventDelete(id: string) {
@@ -146,7 +151,7 @@ export class AsociacionesContainersComponent implements OnInit {
                 // message: `¿Quieres proceder con esta acción ${}?`,
             }
         ).then(() => {
-            this._asociacionescrearService.delete$(id).subscribe((response) => {
+            this._categoryService.delete$(id).subscribe((response) => {
                 if (response) {
                     this.getCategories();
                 }
@@ -155,11 +160,12 @@ export class AsociacionesContainersComponent implements OnInit {
         });
     }
 
-    private edit(UnitMeasurement: Asociaciones) {
-        this._asociacionescrearService.update$(this.unitMeasurement.id, UnitMeasurement).subscribe((response) => {
-            if (response) {
-                this.getCategories();
-            }
-        });
+    private edit(updatedData: Payment) {
+        this._categoryService.update$(this.currentEditingUnitMeasurement.id, updatedData)
+            .subscribe((response) => {
+                if (response) {
+                    this.getCategories();
+                }
+            });
     }
 }

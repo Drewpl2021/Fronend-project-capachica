@@ -9,13 +9,11 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDialogRef} from '@angular/material/dialog';
 import {MatSelectModule} from "@angular/material/select";
 import {CommonModule, JsonPipe} from "@angular/common";
-import {AsociacionesService} from "../../../../../../providers/services/setup/asociaciones.service";
-import {Stores} from "../../../../catalog/productsDynamic/models/product-dynamics";
 import {Municipaldiad} from "../../models/asociaciones";
 import {MunicipalidadService} from "../../../../../../providers/services/setup/municipalidad.service";
 
 @Component({
-    selector: 'app-category-new',
+    selector: 'app-asociaciones-new',
     standalone: true,
     imports: [
         FormsModule,

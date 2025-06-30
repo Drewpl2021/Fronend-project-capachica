@@ -9,12 +9,11 @@ import {PaginationEvent} from "../../../../../shared/pagination-controls/models/
 import {ProductFilterComponent} from "../components/filter/product-filter.component";
 import {ProductEditComponent} from "../components/form/product-edit.component";
 import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm-dialog.service";
-import {CategoryService} from "../../../../../providers/services/catalog/category.service";
 import {ProductService} from "../../../../../providers/services/product/Product.service";
 
 
 @Component({
-    selector: 'app-category-container',
+    selector: 'app-productos-container',
     standalone: true,
     imports: [ProductListComponent,
         PaginationControlsComponent, ProductFilterComponent],

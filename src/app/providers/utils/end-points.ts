@@ -45,49 +45,10 @@ export const END_POINTS = {
         access: 'acceso',
         access_parent: 'acceso-padres',
     },
-    catalog:{
-        unitMeasurement: 'unit-measurements',
-        categories: 'categories',
-        products: 'products',
-        productDynamic: 'product-accounting-dynamics',
-        serialFlows: 'serial-flows',
-    },
-    client:{
-        documentTypes: 'document-types',
-        entityTypes: 'entity-types',
-        services: 'services',
-        entities: 'entities',
-    },
-    reports:{
-        warranties: 'series',
-        profitability: 'profitability',
-    },
-    accountant: {
-        contAsientos: 'cont-asientos',
-    },
-    accounting:{
-        accountingAccountClass:'accounting-account-classes',
-        typeDocument:'type-documents',
-        typeAfeectation:'type-affectations',
-        areas:'areas',
-        stores:'stores',
-        accountingPlan:"accounting-plan",
-        accountingDynamics:'accounting-dynamics',
-    },
-    buys:{
-        purchases: 'purchases',
-        entitiesCompanyP: 'entities-company',
-    },
     product:{
         product: 'emprendedor-service',
         emprendedor:'emprendedor',
         reservas: 'reservas',
-    },
-    payments:{
-        payments: 'payments',
-        operationTypes: 'operation-types',
-        paymentsMethods: 'payment-methods',
-        paymentsTypes: 'payment-types',
     },
     sales:{
         sales: 'sale',
@@ -98,13 +59,6 @@ export const END_POINTS = {
         entitiesCompanyC: 'entities-company',
         creditNoteTypes: 'credit-note-types',
 
-    },
-    warehouseMovement:{
-        warehouseMovement: 'warehouse-movement',
-        inventories: 'inventories',
-        kardex: 'kardex',
-        series: 'series',
-        lots: 'lots',
     },
     event: {
         event: 'evento',

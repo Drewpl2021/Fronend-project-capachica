@@ -5,7 +5,7 @@ import {CommonModule} from "@angular/common";
 
 @Component({
     standalone: true,
-    selector: 'app-module',
+    selector: 'app-municipalidad',
     imports: [CommonModule, RouterOutlet],
     template: `
         <div class="card shadow-gm-card m-1 w-full flex-none">

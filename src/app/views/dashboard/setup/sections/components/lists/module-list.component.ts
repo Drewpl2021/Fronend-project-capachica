@@ -11,7 +11,7 @@ import {CommonModule, DatePipe} from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'app-module-list',
+    selector: 'app-sections-list',
     standalone: true,
     imports: [
         FormsModule,

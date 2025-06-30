@@ -9,7 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 
 
 @Component({
-    selector: 'app-asociaciones-filter',
+    selector: 'app-payment-filter',
     standalone: true,
     imports: [
         FormsModule,
@@ -23,8 +23,8 @@ import {MatInputModule} from '@angular/material/input';
     template: `
         <div class="header-container ">
             <div class="header-title bg-primary-600" >
-                <span class="header-icon">👨‍💼</span>
-                <span>Asociaciones</span>
+                <span class="header-icon">📂</span>
+                <span>Pagos</span>
             </div>
             <div class="actions-container">
                 <form class="form-container" [formGroup]="unitMeasurementFilterForm">
@@ -34,20 +34,20 @@ import {MatInputModule} from '@angular/material/input';
                             matInput
                             [formControlName]="'concatenatedFields'"
                             [autocomplete]="'off'"
-                            [placeholder]="'Buscar Asociaciones'"
+                            [placeholder]="'Buscar Categorías'"
                         />
                     </mat-form-field>
                 </form>
                 <button class="action-button" mat-flat-button [color]="'primary'" (click)="goNew()">
                     <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-                    <span>Nueva Asociacion</span>
+                    <span>Nueva Pago</span>
                 </button>
             </div>
         </div>
 
     `,
 })
-export class AsociacionesFilterComponent implements OnInit {
+export class PaymentFilterComponent implements OnInit {
 
     @Output() eventFilter: EventEmitter<any> = new EventEmitter<any>();
     @Output() eventNew = new EventEmitter<boolean>();

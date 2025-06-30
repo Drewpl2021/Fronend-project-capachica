@@ -7,14 +7,14 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDialogRef} from '@angular/material/dialog';
-import {Module} from "../../models/module";
-import {ParentModule} from "../../../parentModule/models/parent-module";
+import {Payment} from "../../models/payment";
+
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {NgForOf} from "@angular/common";
 
 @Component({
-    selector: 'app-municipalidad-new',
+    selector: 'app-payment-new',
     standalone: true,
     imports: [
         FormsModule,
@@ -33,7 +33,7 @@ import {NgForOf} from "@angular/common";
             <!-- Header -->
             <div
                 class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
-                <div class="text-lg font-medium">Editar Municipalidad</div>
+                <div class="text-lg font-medium">Nuevo Módulo Padre</div>
                 <button mat-icon-button (click)="cancelForm()" [tabIndex]="-1">
                     <mat-icon
                         class="text-current"
@@ -44,26 +44,27 @@ import {NgForOf} from "@angular/common";
 
             <!-- Compose form -->
             <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
-                  [formGroup]="moduleForm">
+                  [formGroup]="parentModuleForm">
                 <mat-form-field>
-                    <mat-label>Distrito</mat-label>
-                    <input type="text" matInput [formControlName]="'distrito'"/>
+                    <mat-label>Módulo Padre</mat-label>
+                    <input type="text" matInput [formControlName]="'code'"/>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Provincia</mat-label>
-                    <input type="email" matInput [formControlName]="'provincia'"/>
+                    <mat-label>Icono</mat-label>
+                    <input type="Number" matInput [formControlName]="'total'"/>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Region</mat-label>
-                    <input type="text" matInput [formControlName]="'region'"/>
+                    <mat-label>Orden</mat-label>
+                    <input type="Number" matInput [formControlName]="'bi'"/>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Codigo</mat-label>
-                    <input type="text" matInput [formControlName]="'codigo'"/>
+                    <mat-label>Url</mat-label>
+                    <input type="Number" matInput [formControlName]="'igv'"/>
                 </mat-form-field>
+
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
                     <div class="flex space-x-2 items-center mt-4 sm:mt-0">
                         <button class="ml-auto sm:ml-0"
@@ -75,7 +76,7 @@ import {NgForOf} from "@angular/common";
                         <button
                             class="ml-auto sm:ml-0"
                             [color]="'primary'"
-                            [disabled]="moduleForm.invalid"
+                            [disabled]="parentModuleForm.invalid"
                             mat-stroked-button
                             (click)="saveForm()">
                             Guardar
@@ -86,32 +87,33 @@ import {NgForOf} from "@angular/common";
         </div>
     `,
 })
-export class ModuleEditComponent implements OnInit {
+export class PaymentEditComponent implements OnInit {
     @Input() title: string = '';
-    @Input() module = new Module();
-    public parentModules: ParentModule[] = [];
+    @Input() parentModule = new Payment();
     abcForms: any;
-    moduleForm = new FormGroup({
-        distrito: new FormControl('', [Validators.required]),
-        provincia: new FormControl('', [Validators.required]),
-        region: new FormControl('', [Validators.required,]),
-        codigo: new FormControl('', [Validators.required,]),
+    parentModuleForm = new FormGroup({
+        code: new FormControl('', [Validators.required]),
+        total: new FormControl('', [Validators.required]),
+        bi: new FormControl('', [Validators.required,]),
+        igv: new FormControl('', [Validators.required,]),
+
+
     });
 
     constructor(
-        private _matDialog: MatDialogRef<ModuleEditComponent>
+        private _matDialog: MatDialogRef<PaymentEditComponent>
     ) {
     }
 
     ngOnInit() {
         this.abcForms = abcForms;
-        this.moduleForm.patchValue(this.module);
-
+        // @ts-ignore
+        this.parentModuleForm.patchValue(this.parentModule);
     }
 
     public saveForm(): void {
-        if (this.moduleForm.valid) {
-            this._matDialog.close(this.moduleForm.value);
+        if (this.parentModuleForm.valid) {
+            this._matDialog.close(this.parentModuleForm.value);
         }
     }
 

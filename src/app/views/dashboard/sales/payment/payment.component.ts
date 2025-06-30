@@ -4,7 +4,7 @@ import {RouterOutlet} from "@angular/router";
 import {CommonModule} from "@angular/common";
 @Component({
     standalone: true,
-    selector: 'app-product',
+    selector: 'app-payment',
     imports: [CommonModule, RouterOutlet],
     template: `
       <div class="card shadow-gm-card m-1 w-full flex-none">
@@ -17,13 +17,13 @@ import {CommonModule} from "@angular/common";
       </div>
   `,
 })
-export class ProductComponent implements OnInit {
+export class PaymentComponent implements OnInit {
   abcForms:any;
   public title: string='';
   constructor() { }
 
   ngOnInit() {
-    this.title = 'Productos';
+    this.title = 'Categorías';
     this.abcForms = abcForms;
   }
 

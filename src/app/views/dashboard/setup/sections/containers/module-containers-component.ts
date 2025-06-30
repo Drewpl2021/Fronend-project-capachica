@@ -15,24 +15,24 @@ import {SectionsService} from "../../../../../providers/services/setup/sections.
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-    selector: 'app-module-container',
+    selector: 'app-sections-container',
     standalone: true,
     imports: [ModuleListComponent,
         PaginationControlsComponent, ModuleFilterComponent],
     template: `
         <div class="w-full mx-auto p-6 bg-white rounded overflow-hidden shadow-lg">
             <div class="flex flex-col md:min-w-160 max-h-screen -m-6">
-                <app-module-filter
+                <app-sections-filter
                     (eventFilter)="eventFilter($event)">
-                </app-module-filter>
+                </app-sections-filter>
             </div>
-            <app-module-list
+            <app-sections-list
                 class="w-full"
                 [modules]="modules"
                 (eventView)="eventView($event)"
                 (eventEdit)="eventEdit($event)"
                 (eventDelete)="eventDelete($event)"
-            ></app-module-list>
+            ></app-sections-list>
             <pagination-controls
                 [totalItems]="paginatedResponse.totalElements"
                 [itemsPerPage]="size"

@@ -9,7 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 
 
 @Component({
-    selector: 'app-module-filter',
+    selector: 'app-municipalidad-filter',
     standalone: true,
     imports: [
         FormsModule,

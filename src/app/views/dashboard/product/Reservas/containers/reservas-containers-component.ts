@@ -1,37 +1,36 @@
 import {Component, OnInit} from '@angular/core';
-import {Asociaciones, AsociacionesFilter, PaginatedResponse} from '../models/asociaciones';
-import {AsociacionesListComponent} from '../components/list/asociaciones-list.component';
+import {Reservas, CategoryFilter, PaginatedResponse} from '../models/reservas';
+import {ReservasListComponent} from '../components/list/reservas-list.component';
 import {MatDialog} from '@angular/material/dialog';
-import {AsociacionesNewComponent} from '../components/form/asociaciones-new.component';
+import {ReservasNewComponent} from '../components/form/reservas-new.component';
 
 import {PaginationControlsComponent} from "../../../../../shared/pagination-controls/pagination-controls.component";
 import {PaginationEvent} from "../../../../../shared/pagination-controls/models/PaginationEvent";
-import {AsociacionesFilterComponent} from "../components/filter/asociaciones-filter.component";
-import {AsociacionesEditComponent} from "../components/form/asociaciones-edit.component";
+import {ReservasFilterComponent} from "../components/filter/reservas-filter.component";
+import {ReservasEditComponent} from "../components/form/reservas-edit.component";
 import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm-dialog.service";
-import {AsociacionesService} from "../../../../../providers/services/setup/asociaciones.service";
-import {AsociacionescrearService} from "../../../../../providers/services/setup/asociacionescrear.service";
+import {ReservasService} from "../../../../../providers/services/product/Reservas.service";
 
 
 @Component({
-    selector: 'app-asociaciones-container',
+    selector: 'app-reservas-container',
     standalone: true,
-    imports: [AsociacionesListComponent,
-        PaginationControlsComponent, AsociacionesFilterComponent],
+    imports: [ReservasListComponent,
+        PaginationControlsComponent, ReservasFilterComponent],
     template: `
         <div class="w-full mx-auto p-6 bg-white rounded overflow-hidden shadow-lg">
 
-            <app-asociaciones-filter
+            <app-reservas-filter
                 (eventFilter)="eventFilter($event)"
                 (eventNew)="eventNew($event)">
-            </app-asociaciones-filter>
+            </app-reservas-filter>
 
-            <app-asociaciones-list
+            <app-reservas-list
                 class="w-full"
-                [categories]="asociaciones"
+                [categories]="categories"
                 (eventEdit)="eventEdit($event)"
                 (eventDelete)="eventDelete($event)"
-            ></app-asociaciones-list>
+            ></app-reservas-list>
             <pagination-controls
                 [totalItems]="paginatedResponse.totalElements"
                 [itemsPerPage]="size"
@@ -41,19 +40,18 @@ import {AsociacionescrearService} from "../../../../../providers/services/setup/
         </div>
     `,
 })
-export class AsociacionesContainersComponent implements OnInit {
+export class ReservasContainersComponent implements OnInit {
     public error: string = '';
-    public asociaciones: Asociaciones[] = [];
+    public categories: Reservas[] = [];
     public paginationEvent = new PaginationEvent();
-    public categoryFilter: AsociacionesFilter;
+    public categoryFilter: CategoryFilter;
 
-    public unitMeasurement = new Asociaciones();
+    public unitMeasurement = new Reservas();
     paginatedResponse: PaginatedResponse = {content: [], totalPages: 0, currentPage: 0, totalElements: 0};
     size: number = 20;
 
     constructor(
-        private _categoryService: AsociacionesService,
-        private _asociacionescrearService: AsociacionescrearService,
+        private _categoryService: ReservasService,
         private _confirmDialogService: ConfirmDialogService,
         private _matDialog: MatDialog
     ) {
@@ -68,7 +66,7 @@ export class AsociacionesContainersComponent implements OnInit {
         this.mergeFilterAndPagination();
     }
 
-    public eventFilter(categoryFilter: AsociacionesFilter): void {
+    public eventFilter(categoryFilter: CategoryFilter): void {
         this.categoryFilter = categoryFilter;
         this.mergeFilterAndPagination();
     }
@@ -86,7 +84,7 @@ export class AsociacionesContainersComponent implements OnInit {
         this._categoryService.getWithQuery$(data).subscribe(
             (response) => {
                 this.paginatedResponse = response;
-                this.asociaciones = this.paginatedResponse.content;
+                this.categories = this.paginatedResponse.content;
             },
             (error) => {
                 this.error = error;
@@ -96,7 +94,7 @@ export class AsociacionesContainersComponent implements OnInit {
 
     public eventNew($event: boolean): void {
         if ($event) {
-            const categoryForm = this._matDialog.open(AsociacionesNewComponent);
+            const categoryForm = this._matDialog.open(ReservasNewComponent);
             categoryForm.componentInstance.title = 'Nueva Categoria' || null;
 
             categoryForm.afterClosed().subscribe((result: any) => {
@@ -112,7 +110,7 @@ export class AsociacionesContainersComponent implements OnInit {
     }
 
     private save(data: Object) {
-        this._asociacionescrearService.add$(data).subscribe((response) => {
+        this._categoryService.add$(data).subscribe((response) => {
             if (response) {
                 this.getCategories();
             }
@@ -121,9 +119,9 @@ export class AsociacionesContainersComponent implements OnInit {
     }
 
     public eventEdit(id: string): void {
-        this._asociacionescrearService.getById$(id).subscribe((response) => {
-            this.unitMeasurement = response.content;
-            const categoryForm = this._matDialog.open(AsociacionesEditComponent);
+        this._categoryService.getById$(id).subscribe((response) => {
+            this.unitMeasurement = response;
+            const categoryForm = this._matDialog.open(ReservasEditComponent);
             categoryForm.componentInstance.title = 'Editar Categoría' || null;
             categoryForm.componentInstance.unitMeasurement = this.unitMeasurement;
 
@@ -146,7 +144,7 @@ export class AsociacionesContainersComponent implements OnInit {
                 // message: `¿Quieres proceder con esta acción ${}?`,
             }
         ).then(() => {
-            this._asociacionescrearService.delete$(id).subscribe((response) => {
+            this._categoryService.delete$(id).subscribe((response) => {
                 if (response) {
                     this.getCategories();
                 }
@@ -155,8 +153,8 @@ export class AsociacionesContainersComponent implements OnInit {
         });
     }
 
-    private edit(UnitMeasurement: Asociaciones) {
-        this._asociacionescrearService.update$(this.unitMeasurement.id, UnitMeasurement).subscribe((response) => {
+    private edit(UnitMeasurement: Reservas) {
+        this._categoryService.update$(this.unitMeasurement.id, UnitMeasurement).subscribe((response) => {
             if (response) {
                 this.getCategories();
             }

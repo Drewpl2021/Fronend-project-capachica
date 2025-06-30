@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {abcForms} from '../../../../../../../environments/generals';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
@@ -15,7 +14,7 @@ import {NgForOf} from "@angular/common";
 import {MunicipalidadService} from "../../../../../../providers/services/setup/municipalidad.service";
 
 @Component({
-    selector: 'app-category-new',
+    selector: 'app-asociaciones-new',
     standalone: true,
     imports: [
         FormsModule,

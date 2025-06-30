@@ -12,7 +12,7 @@ export default [
                 path: '',
                 component: AsociacionesContainersComponent,
                 data: {
-                    title: 'category',
+                    title: 'asociation',
                 }
             },
         ],

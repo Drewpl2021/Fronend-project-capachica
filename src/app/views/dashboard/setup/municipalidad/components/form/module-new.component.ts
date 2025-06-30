@@ -12,7 +12,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {CommonModule, JsonPipe} from "@angular/common";
 
 @Component({
-    selector: 'app-module-new',
+    selector: 'app-municipalidad-new',
     standalone: true,
     imports: [
         FormsModule,

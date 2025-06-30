@@ -19,8 +19,6 @@ import {Subject, Subscription} from 'rxjs';
 import {MenuAcceso} from './menu_accesos';
 import {jwtDecode} from 'jwt-decode';
 import {ModuleService} from "../../../../providers/services/setup/module.service";
-import {SerialFlowsService} from "../../../../providers/services/catalog/serial-flows.service";
-import {SerialFlows} from "../../../../views/dashboard/sales/sales/models/sales";
 import {Company} from "../../../../views/dashboard/setup/listCompany/models/company";
 import {CompanyUserAdminService} from "../../../../providers/services/setup/company-user-admin.service";
 import {

@@ -13,16 +13,13 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {CommonModule, NgForOf} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
-import {SectionsDetailsService} from "../../../../../../providers/services/setup/sections-details.service";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {ConfirmDialogService} from "../../../../../../shared/confirm-dialog/confirm-dialog.service";
-import {ModuleEditComponent} from "../form/module-edit.component";
-import {SeccionDetalleEditComponent} from "../form/seccion-detalle-edit.component";
 import {SectionsDetailsEndService} from "../../../../../../providers/services/setup/sections-details-end.service";
 import {SeccionDetalleEndEditComponent} from "../form/seccion-detalle-end-edit.component";
 
 @Component({
-    selector: 'app-module-new',
+    selector: 'app-sections-new-end',
     standalone: true,
     imports: [
         FormsModule,

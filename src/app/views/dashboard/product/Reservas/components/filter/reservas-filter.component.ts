@@ -9,7 +9,7 @@ import {MatInputModule} from '@angular/material/input';
 
 
 @Component({
-    selector: 'app-sections-filter',
+    selector: 'app-reservas-filter',
     standalone: true,
     imports: [
         FormsModule,
@@ -22,20 +22,35 @@ import {MatInputModule} from '@angular/material/input';
     ],
     template: `
         <div class="header-container ">
-            <div class="header-title bg-primary-600">
-                <span class="header-icon">📋</span>
-                <span>Lista de Secciones</span>
+            <div class="header-title bg-primary-600" >
+                <span class="header-icon">📂</span>
+                <span>Reservas</span>
+            </div>
+            <div class="actions-container">
+                <form class="form-container" [formGroup]="unitMeasurementFilterForm">
+                    <mat-form-field class="mat-field-custom fuse-mat-dense fuse-mat-rounded" [subscriptSizing]="'dynamic'">
+                        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>
+                        <input
+                            matInput
+                            [formControlName]="'concatenatedFields'"
+                            [autocomplete]="'off'"
+                            [placeholder]="'Buscar Reserva'"
+                        />
+                    </mat-form-field>
+                </form>
+
             </div>
         </div>
+
     `,
 })
-export class ModuleFilterComponent implements OnInit {
+export class ReservasFilterComponent implements OnInit {
 
     @Output() eventFilter: EventEmitter<any> = new EventEmitter<any>();
     @Output() eventNew = new EventEmitter<boolean>();
     abcForms: any;
-    moduleFilterForm = new FormGroup({
-        name: new FormControl('', [Validators.required])
+    unitMeasurementFilterForm = new FormGroup({
+        concatenatedFields: new FormControl('', [Validators.required])
 
     });
 
@@ -44,7 +59,7 @@ export class ModuleFilterComponent implements OnInit {
 
     ngOnInit() {
         this.abcForms = abcForms;
-        this.moduleFilterForm.valueChanges.subscribe(value => {
+        this.unitMeasurementFilterForm.valueChanges.subscribe(value => {
             this.eventFilter.emit(value);
         });
     }

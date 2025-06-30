@@ -9,31 +9,30 @@ import {PaginationEvent} from "../../../../../shared/pagination-controls/models/
 import {ModuleFilterComponent} from "../components/filter/module-filter.component";
 import {ModuleEditComponent} from "../components/form/module-edit.component";
 import {ConfirmDialogService} from "../../../../../shared/confirm-dialog/confirm-dialog.service";
-import {ModuleService} from "../../../../../providers/services/setup/module.service";
 import {ParentModuleService} from "../../../../../providers/services/setup/parent-module.service";
 import {ParentModule} from "../../parentModule/models/parent-module";
 import {MunicipalidadService} from "../../../../../providers/services/setup/municipalidad.service";
 
 @Component({
-    selector: 'app-module-container',
+    selector: 'app-municipalidad-container',
     standalone: true,
     imports: [ModuleListComponent,
         PaginationControlsComponent, ModuleFilterComponent],
     template: `
         <div class="w-full mx-auto p-6 bg-white rounded overflow-hidden shadow-lg">
             <div class="flex flex-col md:min-w-160 max-h-screen -m-6">
-                <app-module-filter
+                <app-municipalidad-filter
                     (eventFilter)="eventFilter($event)"
                     (eventNew)="eventNew($event)">
-                </app-module-filter>
+                </app-municipalidad-filter>
             </div>
-            <app-module-list
+            <app-municipalidad-list
                 class="w-full"
                 [municipalidad]="municipalidad"
                 [municipalidadDirec]="municipalidadDirec"
                 (eventEdit)="eventEdit($event)"
                 (eventDelete)="eventDelete($event)"
-            ></app-module-list>
+            ></app-municipalidad-list>
             <pagination-controls
                 [totalItems]="paginatedResponse.totalElements"
                 [itemsPerPage]="size"

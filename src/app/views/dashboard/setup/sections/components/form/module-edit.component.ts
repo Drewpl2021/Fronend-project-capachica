@@ -14,7 +14,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {NgForOf} from "@angular/common";
 
 @Component({
-    selector: 'app-module-new',
+    selector: 'app-sections-new',
     standalone: true,
     imports: [
         FormsModule,

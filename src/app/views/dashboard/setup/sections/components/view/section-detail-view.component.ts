@@ -20,7 +20,7 @@ import {ModuleEditComponent} from "../form/module-edit.component";
 import {SeccionDetalleEditComponent} from "../form/seccion-detalle-edit.component";
 
 @Component({
-    selector: 'app-module-new',
+    selector: 'app-sections-new',
     standalone: true,
     imports: [
         FormsModule,

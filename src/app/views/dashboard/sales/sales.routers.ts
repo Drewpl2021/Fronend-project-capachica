@@ -7,12 +7,7 @@ export default [
         path: '',
         component: SalesComponent,
         children: [
-            {path: 'sales', loadChildren: () => import('./sales/sales-routers')},
-            {path: 'prices', loadChildren: () => import('./prices/prices-routers')},
-            {path: 'priceDetails', loadChildren: () => import('./priceDetails/price-details-routers')},
-            {path: 'entitiesCompanyC', loadChildren: () => import('./entitiesCompanyC/entitiesCompanyC-routers')},
-            {path: 'barCode', loadChildren: () => import('./barCode/barCode-routers')},
-            {path: 'payment', loadChildren: () => import('./payment/category-routers')},
+            {path: 'payment', loadChildren: () => import('./payment/payment-routers')},
         ],
     },
 ] as Routes;
