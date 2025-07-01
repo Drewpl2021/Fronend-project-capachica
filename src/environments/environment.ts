@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: "http://localhost:8000/",
+  url: "http://34.201.243.186/",
   // url: "http://pruebasback.imperiumse.com/api/",
 
 };
